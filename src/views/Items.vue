@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="items">
     <h1>{{ message }}</h1>
   </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
   data: function() {
     return {
-      message: "MISE EN"
+      message: "MY ITEMS"
     };
   },
   created: function() {},
