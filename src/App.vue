@@ -1,13 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      |
-      <router-link to="/items">Items</router-link>
-      |
-      <router-link to="/locations">Locations</router-link>
-    </div>
-    <router-view />
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img
+          src="/docs/4.3/assets/brand/bootstrap-solid.svg"
+          width="30"
+          height="30"
+          class="d-inline-block align-top"
+          alt=""
+        />
+        <h1>
+          Mise en.
+          <small class="text-muted">everything in its place.</small>
+        </h1>
+        <a href="/login">Login</a>
+      </a>
+    </nav>
   </div>
 </template>
 

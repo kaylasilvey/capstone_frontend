@@ -10,7 +10,7 @@
 export default {
   data: function() {
     return {
-      message: "MISE EN"
+      message: "home"
     };
   },
   created: function() {},

@@ -1,19 +1,28 @@
 <template>
-  <div class="location">
+  <div class="container location">
     <h1>{{ message }}</h1>
+    <h2 v-for="location in locations">{{ location.name }}</h2>
   </div>
 </template>
 
 <style></style>
 
 <script>
+import axios from "axios";
+
 export default {
   data: function() {
     return {
-      message: "MY LOCATIONS"
+      message: "MY LOCATIONS",
+      locations: []
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/api/locations").then(response => {
+      this.locations = response.data;
+      console.log(this.locations);
+    });
+  },
   methods: {}
 };
 </script>
