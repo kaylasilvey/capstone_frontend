@@ -14,6 +14,7 @@
           <small class="text-muted">everything in its place.</small>
         </h1>
         <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
       </a>
     </nav>
   </div>
