@@ -20,27 +20,49 @@
         <a href="/signup">Signup</a>
       </a>
     </nav>
+
+    <!-- FOOTER -->
+    <footer class="module bg-light">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-sm-12">
+
+            <ul class="social-text-links font-alt text-center m-b-20">
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Linkedin</a></li>
+              <li><a href="#">GitHub</a></li>
+            </ul>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-sm-12">
+
+            <p class="copyright text-center m-b-0">© 2019 <a href="#">Mise En.</a>, All Rights Reserved.</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </footer>
+    <!-- /FOOTER -->
+  <!-- SCROLLTOP -->
+  <div class="scroll-up">
+    <a href="#totop"><i class="fa fa-angle-double-up"></i></a>
   </div>
+  </div>
+  </div>
+
 </template>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<style></style>
