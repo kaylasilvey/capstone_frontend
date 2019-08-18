@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="wrapper">
    <!-- NAVIGATION -->
     <nav class="navbar navbar-custom navbar-transparent navbar-light navbar-fixed-top">
 
@@ -7,9 +8,7 @@
 
         <div class="navbar-header">
           <!-- YOU LOGO HERE -->
-          <a class="navbar-brand" href="index.html">
-            <!-- IMAGE OR SIMPLE TEXT -->
-            <h1><img src="https://www.extension.iastate.edu/eatfreshsei/files/resize/page/images/static1.squarespace-300x225.jpg" width="40" alt="">  Mise En.</h1>
+          <a class="navbar-brand" href="index.html"><img src="assets/images/magnifying-glass-icon.png" width="60" alt="">
           </a>
         </div>
 
@@ -37,9 +36,98 @@
     </nav>
     <!-- /NAVIGATION -->
 <!-- HERO -->
-    <section class="module module-parallax bg-light-30" data-background="assets/images/choppingblock.jpg">
+    <section class="module module-parallax bg-light-30" data-background="assets/images/produce-cropped.jpg">
     </section>
+</div>
 
+<hr class="divider"><!-- DIVIDER -->
+
+    <!-- RELATED PROJECT -->
+    <section class="module">
+
+      <div class="container">
+
+        <!-- MODULE TITLE -->
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h2 class="module-title font-alt">Everything in its place.</h2>
+          </div>
+        </div>
+        <!-- /MODULE TITLE -->
+
+        <!-- WORKS GRID -->
+        <div class="row">
+
+          <div id="works-grid" class="works-grid works-hover-w">
+
+            <!-- DO NOT DELETE THIS DIV -->
+            <div class="grid-sizer"></div>
+
+            <!-- PORTFOLIO ITEM -->
+            <div class="work-item design">
+              <a href="index.html">
+                <img src="assets/images/pasta.jpg" alt="">
+                <div class="work-caption font-alt">
+                  <h3 class="work-title">Pantry Items</h3>
+                  <div class="work-descr">
+                    Catalogue
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- /PORTFOLIO ITEM -->
+
+            <!-- PORTFOLIO ITEM -->
+            <div class="work-item design">
+              <a href="index.html">
+                <img src="assets/images/kitchen-1.jpg" alt="">
+                <div class="work-caption font-alt">
+                  <h3 class="work-title">Pantry Locations</h3>
+                  <div class="work-descr">
+                    Organize
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- /PORTFOLIO ITEM -->
+
+            <!-- PORTFOLIO ITEM -->
+            <div class="work-item design">
+              <a href="index.html">
+                <img src="assets/images/blank-page.jpg" alt="">
+                <div class="work-caption font-alt">
+                  <h3 class="work-title">Grocery Lists</h3>
+                  <div class="work-descr">
+                    Plan
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- /PORTFOLIO ITEM -->
+
+            <!-- PORTFOLIO ITEM -->
+            <div class="work-item design">
+              <a href="index.html">
+                <img src="assets/images/baking-2.jpg" alt="">
+                <div class="work-caption font-alt">
+                  <h3 class="work-title">Recipes</h3>
+                  <div class="work-descr">
+                    Create
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- /PORTFOLIO ITEM -->
+
+          </div>
+
+        </div>
+        <!-- /WORKS GRID -->
+
+      </div>
+
+    </section>
+    <!-- /RELATED PROJECT -->
     <body>
 <router-view />
 </body>
