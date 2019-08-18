@@ -1,5 +1,71 @@
 <template>
   <div id="app">
+    <!-- OVERLAY MENU -->
+  <div id="overlay-menu" class="overlay-menu">
+
+    <a href="#" id="overlay-menu-hide" class="navigation-hide"><i class="ion-close-round"></i></a>
+
+    <div class="overlay-menu-inner">
+      <nav class="overlay-menu-nav">
+
+        <ul id="nav">
+
+          <li class="slidedown">
+            <a href="/">Home</a>
+          </li>
+
+          <li class="slidedown">
+            <a href="/items.html">Pantry Items</a>
+            <ul>
+              <li><a href="#">Add New Item</a></li>
+              <li><a href="#"></a>Show All Items</li>
+            </ul>
+          </li>
+
+          <li class="slidedown">
+            <a href="/locations.html">Pantry Locations</a>
+            <ul>
+              <li><a href="#">Fridge</a></li>
+              <li><a href="#">Freezer</a></li>
+              <li><a href="#">Pantry</a></li>
+              <li><a href="#">Cupboard</a></li>
+            </ul>
+          </li>
+
+          <li class="slidedown">
+            <a href="#">Grocery Lists</a>
+            <ul>
+              <li><a href="#">Create New List</a></li>
+              <li><a href="#">View All Lists</a></li>
+            </ul>
+          </li>
+
+          <li><a href="contact.html">My Account</a></li>
+
+        </ul>
+
+      </nav>
+    </div>
+
+    <div class="overlay-navigation-footer">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-sm-12 text-center">
+            <p class="copyright font-alt m-b-0">© 2019 Mise En., All Rights Reserved.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /OVERLAY MENU -->
+
     <div class="wrapper">
    <!-- NAVIGATION -->
     <nav class="navbar navbar-custom navbar-transparent navbar-light navbar-fixed-top">
@@ -8,8 +74,9 @@
 
         <div class="navbar-header">
           <!-- YOU LOGO HERE -->
-          <a class="navbar-brand" href="index.html"><img src="assets/images/magnifying-glass-icon.png" width="60" alt="">
+          <a class="navbar-brand" href="index.html"><img src="assets/images/favicon.png" width="60" alt="">
           </a>
+          <h1> Mise En.</h1>
         </div>
 
         <!-- ICONS NAVBAR -->
@@ -26,9 +93,9 @@
 
         <ul class="extra-navbar nav navbar-nav navbar-right">
           <li><a href="index.html" title="Home">Home</a></li>
-          <li><a href="items.html" title="Items">Items</a></li>
-          <li><a href="locations.html" title="Locations">Locations</a></li>
-          <li><a href="lists.html" title="Lists">Lists</a></li>
+          <li><a href="Login.html" title="Items">Login</a></li>
+          <li><a href="Signup.html" title="Locations">Sign Up</a></li>
+          <li><a href="Logout.html" title="Lists">Logout</a></li>
         </ul>
 
       </div>
@@ -36,7 +103,7 @@
     </nav>
     <!-- /NAVIGATION -->
 <!-- HERO -->
-    <section class="module module-parallax bg-light-30" data-background="assets/images/produce-cropped.jpg">
+    <section class="module module-parallax bg-light-30" data-background="assets/images/spices.jpg">
     </section>
 </div>
 
