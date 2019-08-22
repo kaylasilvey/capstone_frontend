@@ -1,7 +1,9 @@
 <template>
-  <div class="container location">
-    <h1>{{ message }}</h1>
-    <h2 v-for="location in locations">{{ location.name }}</h2>
+  <div id="locations">
+    <div class="container location">
+      <h1>{{ message }}</h1>
+      <h2 v-for="location in locations">{{ location.name }}</h2>
+    </div>
   </div>
 </template>
 

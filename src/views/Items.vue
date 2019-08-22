@@ -1,15 +1,20 @@
 <template>
-  <div class="items">
-    <h1>{{ message }}</h1>
-    <div v-for="item in items">
-      <div>
-        <router-link v-bind:to="`/items/${item.id}`">More info</router-link>
+  <div id="items">
+    <section class="module">
+      <div class="container">
+        <!-- MODULE TITLE -->
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h1>{{ message }}</h1>
+            <div v-for="item in items">
+              <h1>{{ item.name }}</h1>
+            </div>
+          </div>
+        </div>
       </div>
-      <h2>{{ item.name }}</h2>
-    </div>
+    </section>
   </div>
 </template>
-
 <style></style>
 
 <script>
@@ -17,11 +22,14 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      message: "MY ITEMS",
-      items: [],
-      name: "",
-      UOM: "",
-      location: ""
+      message: "HELLO. IS ANYTHING THERE.",
+      items: [
+        {
+          name: "",
+          UOM: "",
+          locations: []
+        }
+      ]
     };
   },
   created: function() {

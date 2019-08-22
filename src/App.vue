@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <!-- OVERLAY MENU -->
   <div id="overlay-menu" class="overlay-menu">
 
@@ -10,20 +11,18 @@
 
         <ul id="nav">
 
-          <li class="slidedown">
-            <a href="/">Home</a>
-          </li>
+          <li><a href="/">Home</a></li>
 
           <li class="slidedown">
-            <a href="/items.html">Pantry Items</a>
+            <a href="#">Pantry Items</a>
             <ul>
               <li><a href="#">Add New Item</a></li>
-              <li><a href="#"></a>Show All Items</li>
+              <li><a href="/items">Show All Items</a></li>
             </ul>
           </li>
 
           <li class="slidedown">
-            <a href="/locations.html">Pantry Locations</a>
+            <a href="#">Pantry Locations</a>
             <ul>
               <li><a href="#">Fridge</a></li>
               <li><a href="#">Freezer</a></li>
@@ -40,7 +39,7 @@
             </ul>
           </li>
 
-          <li><a href="contact.html">My Account</a></li>
+          <li><a href="#">My Account</a></li>
 
         </ul>
 
@@ -66,6 +65,7 @@
   </div>
   <!-- /OVERLAY MENU -->
 
+
     <div class="wrapper">
    <!-- NAVIGATION -->
     <nav class="navbar navbar-custom navbar-transparent navbar-light navbar-fixed-top">
@@ -74,9 +74,8 @@
 
         <div class="navbar-header">
           <!-- YOU LOGO HERE -->
-          <a class="navbar-brand" href="index.html"><img src="assets/images/favicon.png" width="60" alt="">
+          <a class="navbar-brand" href="index.html"><img src="assets/images/favicon.png" width="45" alt="">
           </a>
-          <h1> Mise En.</h1>
         </div>
 
         <!-- ICONS NAVBAR -->
@@ -92,117 +91,41 @@
         <!-- /ICONS NAVBAR -->
 
         <ul class="extra-navbar nav navbar-nav navbar-right">
-          <li><a href="index.html" title="Home">Home</a></li>
-          <li><a href="Login.html" title="Items">Login</a></li>
-          <li><a href="Signup.html" title="Locations">Sign Up</a></li>
-          <li><a href="Logout.html" title="Lists">Logout</a></li>
+          <li><a href="/" title="Home">Home</a></li>
+          <li><a href="/login.html" title="Items">Login</a></li>
+          <li><a href="/signup.html" title="Locations">Sign Up</a></li>
+          <li><a href="/logout.html" title="Lists">Logout</a></li>
         </ul>
 
       </div>
 
     </nav>
     <!-- /NAVIGATION -->
+
 <!-- HERO -->
-    <section class="module module-parallax bg-light-30" data-background="assets/images/spices.jpg">
-    </section>
-</div>
-
-<hr class="divider"><!-- DIVIDER -->
-
-    <!-- RELATED PROJECT -->
-    <section class="module">
-
+    <section class="module module-parallax bg-light-30" data-background="assets/images/preptable.jpg">
+      <!-- HERO TEXT -->
       <div class="container">
 
-        <!-- MODULE TITLE -->
         <div class="row">
-          <div class="col-sm-6 col-sm-offset-3">
-            <h2 class="module-title font-alt">Everything in its place.</h2>
+          <div class="col-sm-12 text-center">
+            <h1 class="mh-line-size-1 font-alt m-b-20">Mise En.</h1>
           </div>
         </div>
-        <!-- /MODULE TITLE -->
-
-        <!-- WORKS GRID -->
-        <div class="row">
-
-          <div id="works-grid" class="works-grid works-hover-w">
-
-            <!-- DO NOT DELETE THIS DIV -->
-            <div class="grid-sizer"></div>
-
-            <!-- PORTFOLIO ITEM -->
-            <div class="work-item design">
-              <a href="index.html">
-                <img src="assets/images/pasta.jpg" alt="">
-                <div class="work-caption font-alt">
-                  <h3 class="work-title">Pantry Items</h3>
-                  <div class="work-descr">
-                    Catalogue
-                  </div>
-                </div>
-              </a>
-            </div>
-            <!-- /PORTFOLIO ITEM -->
-
-            <!-- PORTFOLIO ITEM -->
-            <div class="work-item design">
-              <a href="index.html">
-                <img src="assets/images/kitchen-1.jpg" alt="">
-                <div class="work-caption font-alt">
-                  <h3 class="work-title">Pantry Locations</h3>
-                  <div class="work-descr">
-                    Organize
-                  </div>
-                </div>
-              </a>
-            </div>
-            <!-- /PORTFOLIO ITEM -->
-
-            <!-- PORTFOLIO ITEM -->
-            <div class="work-item design">
-              <a href="index.html">
-                <img src="assets/images/blank-page.jpg" alt="">
-                <div class="work-caption font-alt">
-                  <h3 class="work-title">Grocery Lists</h3>
-                  <div class="work-descr">
-                    Plan
-                  </div>
-                </div>
-              </a>
-            </div>
-            <!-- /PORTFOLIO ITEM -->
-
-            <!-- PORTFOLIO ITEM -->
-            <div class="work-item design">
-              <a href="index.html">
-                <img src="assets/images/baking-2.jpg" alt="">
-                <div class="work-caption font-alt">
-                  <h3 class="work-title">Recipes</h3>
-                  <div class="work-descr">
-                    Create
-                  </div>
-                </div>
-              </a>
-            </div>
-            <!-- /PORTFOLIO ITEM -->
-
-          </div>
-
-        </div>
-        <!-- /WORKS GRID -->
 
       </div>
+      <!-- /HERO TEXT -->
 
     </section>
-    <!-- /RELATED PROJECT -->
-    <body>
-<router-view />
-</body>
+     <router-view />
+</div>
+
+
     <!-- FOOTER -->
     <footer class="module bg-light">
 
       <div class="container">
-
+        
         <div class="row">
 
           <div class="col-sm-12">
@@ -228,7 +151,12 @@
           </div>
 
         </div>
-
+        <br>
+<div class="row">
+         <div class="col-sm-12 text-center">
+            <img src="assets/images/favicon.png" width="70" alt="">
+          </div>
+        </div>
       </div>
 
     </footer>
