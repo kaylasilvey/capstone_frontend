@@ -34,7 +34,7 @@ export default {
         this.image = event.target.files[0];
       }
     },
-    createRecipe: function() {
+    createItem: function() {
       console.log("Creating Item ...");
       var formData = new FormData();
       formData.append("name", this.name);
