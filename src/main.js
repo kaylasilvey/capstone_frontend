@@ -1,4 +1,6 @@
 import Vue from "vue";
+import "vue-instant/dist/vue-instant.css";
+import VueInstant from "vue-instant";
 import App from "./App.vue";
 import router from "./router";
 import axios from "axios";

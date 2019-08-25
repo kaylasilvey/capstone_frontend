@@ -16,7 +16,7 @@
           <li class="slidedown">
             <a href="#">Pantry Items</a>
             <ul>
-              <li><a href="#">Add New Item</a></li>
+              <li><a href="/items/new">Add New Item</a></li>
               <li><a href="/items">Show All Items</a></li>
             </ul>
           </li>
@@ -24,10 +24,10 @@
           <li class="slidedown">
             <a href="#">Pantry Locations</a>
             <ul>
-              <li><a href="#">Fridge</a></li>
-              <li><a href="#">Freezer</a></li>
-              <li><a href="#">Pantry</a></li>
-              <li><a href="#">Cupboard</a></li>
+              <li><a href="/locations/">Fridge</a></li>
+              <li><a href="/locations/">Freezer</a></li>
+              <li><a href="/locations/">Pantry</a></li>
+              <li><a href="/locations/">Cupboard</a></li>
             </ul>
           </li>
 
@@ -74,7 +74,7 @@
 
         <div class="navbar-header">
           <!-- YOU LOGO HERE -->
-          <a class="navbar-brand" href="index.html"><img src="assets/images/favicon.png" width="45" alt="">
+          <a class="navbar-brand" href="index"><img src="assets/images/favicon.png" width="45" alt="">
           </a>
         </div>
 
@@ -92,9 +92,9 @@
 
         <ul class="extra-navbar nav navbar-nav navbar-right">
           <li><a href="/" title="Home">Home</a></li>
-          <li><a href="/login.html" title="Items">Login</a></li>
-          <li><a href="/signup.html" title="Locations">Sign Up</a></li>
-          <li><a href="/logout.html" title="Lists">Logout</a></li>
+          <li><a href="/login" title="Items">Login</a></li>
+          <li><a href="/signup" title="Locations">Sign Up</a></li>
+          <li><a href="/logout" title="Lists">Logout</a></li>
         </ul>
 
       </div>
@@ -102,7 +102,7 @@
     </nav>
     <!-- /NAVIGATION -->
 
-<!-- HERO -->
+    <!-- HERO -->
     <section class="module module-parallax bg-light-30" data-background="assets/images/preptable.jpg">
       <!-- HERO TEXT -->
       <div class="container">
