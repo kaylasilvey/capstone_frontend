@@ -6,6 +6,7 @@ import Locations from "./views/Locations.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import Signup from "./views/Signup.vue";
+import ItemNew from "./views/ItemNew.vue";
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
       path: "/signup",
       name: "signup",
       component: Signup
+    },
+    {
+      path: "/items/new",
+      name: "itemNew",
+      component: ItemNew
     }
   ]
 });

@@ -31,12 +31,12 @@
       <div class="container">
         <!-- MODULE TITLE -->
         <div class="row">
-          <div v-for="item in items">
-            <div class="col-sm-3">
-              <!--  <h4>{{ item.location }}</h4> -->
-              <p>{{ item.name }}</p>
-            </div>
-          </div>
+          <ul id="items" class="col-sm-3" v-for="item in items">
+            <li>{{ item.name }}</li>
+            <ul>
+              <li>QTY | location</li>
+            </ul>
+          </ul>
         </div>
       </div>
     </section>
@@ -49,20 +49,28 @@ import Vue from "vue";
 import axios from "axios";
 import "vue-instant/dist/vue-instant.css";
 import VueInstant from "vue-instant";
+import Vue2Filters from "vue2-filters";
 
 Vue.use(VueInstant);
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       value: "",
-      suggestionAttribute: "item.name",
+      suggestionAttribute: "suggestionAttribute",
       suggestions: [],
       selectedEvent: "",
       items: [
         {
           name: "",
-          UOM: ""
+          UOM: "",
+          locations: [
+            {
+              name: "",
+              QTY: ""
+            }
+          ]
         }
       ]
     };

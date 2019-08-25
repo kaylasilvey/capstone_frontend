@@ -18,7 +18,7 @@
 
             <!-- PORTFOLIO ITEM -->
             <div class="work-item design">
-              <a href="/items.html">
+              <a href="/items">
                 <img src="assets/images/pasta.jpg" alt="" />
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Pantry Items</h3>
@@ -32,7 +32,7 @@
 
             <!-- PORTFOLIO ITEM -->
             <div class="work-item design">
-              <a href="/locations.html">
+              <a href="/locations">
                 <img src="assets/images/kitchen-1.jpg" alt="" />
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Pantry Locations</h3>

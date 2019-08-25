@@ -2,7 +2,7 @@
   <div id="locations">
     <div class="container location">
       <h1>{{ message }}</h1>
-      <h2 v-for="location in locations">{{ location.name }}</h2>
+      <h2 v-for="location in locations">{{ locations }}</h2>
     </div>
   </div>
 </template>
@@ -16,7 +16,18 @@ export default {
   data: function() {
     return {
       message: "MY LOCATIONS",
-      locations: []
+      locations: [
+        {
+          name: "",
+          items: [
+            {
+              name: "",
+              UOM: "",
+              QTY: ""
+            }
+          ]
+        }
+      ]
     };
   },
   created: function() {

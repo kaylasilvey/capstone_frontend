@@ -23,11 +23,9 @@
 
           <li class="slidedown">
             <a href="#">Pantry Locations</a>
-            <ul>
-              <li><a href="/locations/">Fridge</a></li>
-              <li><a href="/locations/">Freezer</a></li>
-              <li><a href="/locations/">Pantry</a></li>
-              <li><a href="/locations/">Cupboard</a></li>
+            <ul id="locations">
+            <li v-for="location in locations"><a href="/locations/"> {{ location.name }}</a></li>
+            <li><a href="/locations/new">Add New Location</a></li>
             </ul>
           </li>
 
@@ -171,3 +169,27 @@
 </template>
 
 <style></style>
+
+<script>
+import Vue from "vue";
+import axios from "axios";
+import "vue-instant/dist/vue-instant.css";
+import VueInstant from "vue-instant";
+
+Vue.use(VueInstant);
+
+export default {
+  data: function() {
+    return {
+      locations: [],
+    };
+  },
+  created: function() {
+    axios.get("/api/locations").then(response => {
+      this.locations = response.data;
+      console.log(this.locations);
+    });
+  },
+};
+</script>
+
