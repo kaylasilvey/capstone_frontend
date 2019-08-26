@@ -1,8 +1,10 @@
 <template>
   <div id="locations">
     <div class="container location">
-      <h1>{{ message }}</h1>
-      <h2 v-for="location in locations">{{ locations }}</h2>
+      <div class="col-sm-12 text-center" v-for="location in locations">
+        <h1>{{ location.name }}</h1>
+        <p v-for="item in location.item">{{ item.name }} | {{ item.QTY }} | {{ item.UOM }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +21,7 @@ export default {
       locations: [
         {
           name: "",
-          items: [
+          item: [
             {
               name: "",
               UOM: "",

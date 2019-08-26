@@ -31,12 +31,14 @@
       <div class="container">
         <!-- MODULE TITLE -->
         <div class="row">
-          <ul id="items" class="col-sm-3" v-for="item in items">
-            <li>{{ item.name }}</li>
-            <ul>
-              <li>QTY | location</li>
+          <div class="col-sm-3" v-for="item in items">
+            <ul id="items">
+              <li>{{ item.name }}</li>
+              <ul v-for="location in item.location">
+                <li>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</li>
+              </ul>
             </ul>
-          </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -58,21 +60,10 @@ export default {
   data: function() {
     return {
       value: "",
-      suggestionAttribute: "suggestionAttribute",
+      suggestionAttribute: "name",
       suggestions: [],
       selectedEvent: "",
-      items: [
-        {
-          name: "",
-          UOM: "",
-          locations: [
-            {
-              name: "",
-              QTY: ""
-            }
-          ]
-        }
-      ]
+      items: []
     };
   },
   created: function() {
@@ -82,38 +73,38 @@ export default {
     });
   },
   methods: {
-    clickInput() {
-      this.selectedEvent = "click input";
-    },
-    clickButton() {
-      this.selectedEvent = "click button";
-    },
-    selected() {
-      this.selectedEvent = "selection changed";
-    },
-    enter() {
-      this.selectedEvent = "enter";
-    },
-    keyUp: function() {
-      this.selectedEvent = "keyup pressed";
-    },
-    keyDown: function() {
-      this.selectedEvent = "keyDown pressed";
-    },
-    keyRight: function() {
-      this.selectedEvent = "keyRight pressed";
-    },
-    clear: function() {
-      this.selectedEvent = "clear input";
-    },
-    escape: function() {
-      this.selectedEvent = "escape";
-    },
+    // clickInput() {
+    //   this.selectedEvent = "click input";
+    // },
+    // clickButton() {
+    //   this.selectedEvent = "click button";
+    // },
+    // selected() {
+    //   this.selectedEvent = "selection changed";
+    // },
+    // enter() {
+    //   this.selectedEvent = "enter";
+    // },
+    // keyUp: function() {
+    //   this.selectedEvent = "keyup pressed";
+    // },
+    // keyDown: function() {
+    //   this.selectedEvent = "keyDown pressed";
+    // },
+    // keyRight: function() {
+    //   this.selectedEvent = "keyRight pressed";
+    // },
+    // clear: function() {
+    //   this.selectedEvent = "clear input";
+    // },
+    // escape: function() {
+    //   this.selectedEvent = "escape";
+    // },
     changed: function() {
       var that = this;
       this.suggestions = [];
-      axios.get("/api/items/name?q=" + this.value).then(function(response) {
-        response.data.results.forEach(function(a) {
+      axios.get("/api/items?q=" + this.value).then(function(response) {
+        response.data.forEach(function(a) {
           that.suggestions.push(a);
         });
       });
