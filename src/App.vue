@@ -24,7 +24,7 @@
           <li class="slidedown">
             <a href="#">Pantry Locations</a>
             <ul id="locations">
-            <li v-for="location in locations"><a href="/locations/"> {{ location.name }}</a></li>
+            <li v-for="location in locations"><a href="/locations"> {{ location.name }}</a></li>
             <li><a href="/locations/new">Add New Location</a></li>
             </ul>
           </li>

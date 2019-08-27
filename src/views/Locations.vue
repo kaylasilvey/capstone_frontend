@@ -18,18 +18,7 @@ export default {
   data: function() {
     return {
       message: "MY LOCATIONS",
-      locations: [
-        {
-          name: "",
-          item: [
-            {
-              name: "",
-              UOM: "",
-              QTY: ""
-            }
-          ]
-        }
-      ]
+      locations: []
     };
   },
   created: function() {

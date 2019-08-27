@@ -1,5 +1,62 @@
 <template>
   <div id="items">
+    <!-- New Item Modal -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-g btn-circle btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
+        Add New Item
+      </button>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Create New Item</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form v-on:submit.prevent="createItem()">
+                <div class="form-group">
+                  Name:
+                  <input v-model="name" type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                  UOM:
+                  <input v-model="UOM" type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                  Quantity:
+                  <input v-model="QTY" type="integer" class="form-control" />
+                </div>
+                <div class="form-group">
+                  Location:
+                  <select v-model="location" class="form-control">
+                    <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
+                  </select>
+                </div>
+                <input type="submit" value="Create" class="btn btn-primary" />
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END MODAL -->
+
+    <!-- SEARCH BAR -->
+
     <section class="module">
       <div class="col-sm-12 text-center">
         <div id="vue-instant">
@@ -28,6 +85,9 @@
           ></vue-instant>
         </div>
       </div>
+
+      <!-- END SEARCH BAR -->
+
       <div class="container">
         <!-- MODULE TITLE -->
         <div class="row">
@@ -73,33 +133,33 @@ export default {
     });
   },
   methods: {
-    // clickInput() {
-    //   this.selectedEvent = "click input";
-    // },
-    // clickButton() {
-    //   this.selectedEvent = "click button";
-    // },
-    // selected() {
-    //   this.selectedEvent = "selection changed";
-    // },
-    // enter() {
-    //   this.selectedEvent = "enter";
-    // },
-    // keyUp: function() {
-    //   this.selectedEvent = "keyup pressed";
-    // },
-    // keyDown: function() {
-    //   this.selectedEvent = "keyDown pressed";
-    // },
-    // keyRight: function() {
-    //   this.selectedEvent = "keyRight pressed";
-    // },
-    // clear: function() {
-    //   this.selectedEvent = "clear input";
-    // },
-    // escape: function() {
-    //   this.selectedEvent = "escape";
-    // },
+    clickInput() {
+      this.selectedEvent = "click input";
+    },
+    clickButton() {
+      this.selectedEvent = "click button";
+    },
+    selected() {
+      this.selectedEvent = "selection changed";
+    },
+    enter() {
+      this.selectedEvent = "enter";
+    },
+    keyUp: function() {
+      this.selectedEvent = "keyup pressed";
+    },
+    keyDown: function() {
+      this.selectedEvent = "keyDown pressed";
+    },
+    keyRight: function() {
+      this.selectedEvent = "keyRight pressed";
+    },
+    clear: function() {
+      this.selectedEvent = "clear input";
+    },
+    escape: function() {
+      this.selectedEvent = "escape";
+    },
     changed: function() {
       var that = this;
       this.suggestions = [];
@@ -108,6 +168,32 @@ export default {
           that.suggestions.push(a);
         });
       });
+    },
+    createItem: function() {
+      console.log("Creating Item ...");
+      var formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("UOM", this.UOM);
+      axios
+        .post("/api/items", formData)
+        .then(response => {
+          console.log("Success", response.data);
+          this.$router.push("/items");
+        })
+        .catch(error => console.log(error.response));
+    },
+    createItem: function() {
+      console.log("Placing the item in its home ...");
+      var formData = new FormData();
+      formData.append("location", this.location.id);
+      formData.append("QTY", this.QTY);
+      axios
+        .post("/api/location_items", formData)
+        .then(response => {
+          console.log("Success", response.data);
+          this.$router.push("/location_items");
+        })
+        .catch(error => console.log(error.response));
     }
   }
 };
