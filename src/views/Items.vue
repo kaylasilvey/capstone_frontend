@@ -1,62 +1,12 @@
 <template>
   <div id="items" class="module text-center">
-    <!-- New Item Modal -->
-    <button
-      type="submit"
-      class="btn btn-border-d btn-round btn-lg"
-      data-toggle="modal"
-      data-target="#exampleModalCenter"
-    >
-      Add New Item
-    </button>
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="exampleModalCenter"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Create New Item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form v-on:submit.prevent="createItem()">
-              <div class="form-group">
-                Name:
-                <input v-model="name" type="text" class="form-control" />
-              </div>
-              <div class="form-group">
-                UOM:
-                <input v-model="UOM" type="text" class="form-control" />
-              </div>
-              <div class="form-group">
-                Quantity:
-                <input v-model="QTY" type="integer" class="form-control" />
-              </div>
-              <div class="form-group">
-                Location:
-                <select v-model="location" class="form-control">
-                  <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
-                </select>
-              </div>
-              <input type="submit" value="Create" class="btn btn-primary" />
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
+    <!-- MODULE TITLE -->
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <h2 class="module-title font-alt">Pantry Items</h2>
       </div>
     </div>
-
-    <!-- END MODAL -->
+    <!-- /MODULE TITLE -->
 
     <!-- SEARCH BAR -->
 
@@ -91,16 +41,66 @@
 
       <!-- END SEARCH BAR -->
 
-      <section class="module">
-        <div class="container">
-          <!-- MODULE TITLE -->
-          <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-              <h2 class="module-title font-alt">Pantry Items</h2>
+      <!-- New Item Modal -->
+      <button
+        type="submit"
+        class="btn btn-border-d btn-round btn-lg"
+        data-toggle="modal"
+        data-target="#exampleModalCenter"
+      >
+        Add New Item
+      </button>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Create New Item</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form v-on:submit.prevent="createItem()">
+                <div class="form-group">
+                  Name:
+                  <input v-model="name" type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                  UOM:
+                  <input v-model="UOM" type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                  Quantity:
+                  <input v-model="QTY" type="integer" class="form-control" />
+                </div>
+                <div class="form-group">
+                  Location:
+                  <select v-model="location" class="form-control">
+                    <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
+                  </select>
+                </div>
+                <input type="submit" value="Create" class="btn btn-primary" />
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
-          <!-- /MODULE TITLE -->
+        </div>
+      </div>
 
+      <!-- END MODAL -->
+
+      <section class="module">
+        <div class="container">
           <div class="row multi-columns-row">
             <div class="col-sm-6 col-sm-offset-3">
               <!-- ACCORDIONS -->
@@ -171,9 +171,6 @@ export default {
     });
   },
   methods: {
-    showToggleItem: function() {
-      this.toggleItem = !this.toggleItem;
-    },
     clickInput() {
       this.selectedEvent = "click input";
     },
