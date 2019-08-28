@@ -167,8 +167,7 @@ export default {
       suggestionAttribute: "name",
       suggestions: [],
       selectedEvent: "",
-      items: [],
-      variable: false
+      items: []
     };
   },
   created: function() {
@@ -186,6 +185,7 @@ export default {
         this.items.splice(index, 1);
       });
     },
+    // SEARCH BAR METHODS ------------------------------------>
     clickInput() {
       this.selectedEvent = "click input";
     },
@@ -222,6 +222,7 @@ export default {
         });
       });
     },
+    // CREATE ITEM (NEED TO FINISH...) ----------------------------------->
     createItem: function() {
       console.log("Creating Item ...");
       var formData = new FormData();
