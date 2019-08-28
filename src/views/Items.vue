@@ -1,53 +1,56 @@
 <template>
-  <div id="items">
+  <div id="items" class="module text-center">
     <!-- New Item Modal -->
-    <div class="text-center">
-      <button type="submit" class="btn btn-g btn-circle btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
-        Add New Item
-      </button>
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="exampleModalCenter"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Create New Item</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form v-on:submit.prevent="createItem()">
-                <div class="form-group">
-                  Name:
-                  <input v-model="name" type="text" class="form-control" />
-                </div>
-                <div class="form-group">
-                  UOM:
-                  <input v-model="UOM" type="text" class="form-control" />
-                </div>
-                <div class="form-group">
-                  Quantity:
-                  <input v-model="QTY" type="integer" class="form-control" />
-                </div>
-                <div class="form-group">
-                  Location:
-                  <select v-model="location" class="form-control">
-                    <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
-                  </select>
-                </div>
-                <input type="submit" value="Create" class="btn btn-primary" />
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+    <button
+      type="submit"
+      class="btn btn-border-d btn-round btn-lg"
+      data-toggle="modal"
+      data-target="#exampleModalCenter"
+    >
+      Add New Item
+    </button>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Create New Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form v-on:submit.prevent="createItem()">
+              <div class="form-group">
+                Name:
+                <input v-model="name" type="text" class="form-control" />
+              </div>
+              <div class="form-group">
+                UOM:
+                <input v-model="UOM" type="text" class="form-control" />
+              </div>
+              <div class="form-group">
+                Quantity:
+                <input v-model="QTY" type="integer" class="form-control" />
+              </div>
+              <div class="form-group">
+                Location:
+                <select v-model="location" class="form-control">
+                  <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
+                </select>
+              </div>
+              <input type="submit" value="Create" class="btn btn-primary" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -88,22 +91,56 @@
 
       <!-- END SEARCH BAR -->
 
-      <div class="container">
-        <!-- MODULE TITLE -->
-        <div class="row">
-          <div class="col-sm-3" v-for="item in items">
-            <ul id="items">
-              <li>{{ item.name }}</li>
-              <ul v-for="location in item.location">
-                <li>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</li>
-              </ul>
-            </ul>
+      <section class="module">
+        <div class="container">
+          <!-- MODULE TITLE -->
+          <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+              <h2 class="module-title font-alt">Pantry Items</h2>
+            </div>
+          </div>
+          <!-- /MODULE TITLE -->
+
+          <div class="row multi-columns-row">
+            <div class="col-sm-6 col-sm-offset-3">
+              <!-- ACCORDIONS -->
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default" v-for="item in items">
+                  <div class="panel-heading">
+                    <h4 class="panel-title font-alt">
+                      <a
+                        data-toggle="collapse"
+                        data-parent="#accordion"
+                        v-bind:href="`#support${item.id}`"
+                        aria-expanded="false"
+                        class="collapsed"
+                      >
+                        {{ item.name }}
+                      </a>
+                    </h4>
+                  </div>
+                  <div
+                    v-bind:id="`support${item.id}`"
+                    class="panel-collapse collapse"
+                    aria-expanded="false"
+                    style="height: 0px;"
+                  >
+                    <div class="panel-body" v-for="location in item.location">
+                      <p>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</p>
+                      <p><button type="submit" class="btn btn-border-d btn-round btn-xs">Edit</button></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /ACCORDIONS -->
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </section>
   </div>
 </template>
+
 <style></style>
 
 <script>
@@ -123,7 +160,8 @@ export default {
       suggestionAttribute: "name",
       suggestions: [],
       selectedEvent: "",
-      items: []
+      items: [],
+      variable: false
     };
   },
   created: function() {
@@ -133,6 +171,9 @@ export default {
     });
   },
   methods: {
+    showToggleItem: function() {
+      this.toggleItem = !this.toggleItem;
+    },
     clickInput() {
       this.selectedEvent = "click input";
     },
