@@ -90,9 +90,9 @@
 
         <ul class="extra-navbar nav navbar-nav navbar-right">
           <li><a href="/" title="Home">Home</a></li>
-          <li><a href="/login" title="Items">Login</a></li>
-          <li><a href="/signup" title="Locations">Sign Up</a></li>
-          <li><a href="/logout" title="Lists">Logout</a></li>
+          <li><a href="/login" title="Login"  v-if="!jwt">Login</a></li>
+          <li><a href="/signup" title="SignUp"  v-if="!jwt">Sign Up</a></li>
+          <li><a href="/logout" title="Logout"  v-if="jwt">Logout</a></li>
         </ul>
 
       </div>

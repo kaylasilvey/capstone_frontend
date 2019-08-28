@@ -127,7 +127,14 @@
                   >
                     <div class="panel-body" v-for="location in item.location">
                       <p>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</p>
-                      <p><button type="submit" class="btn btn-border-d btn-round btn-xs">Edit</button></p>
+                      <p>
+                        <button class="btn btn-border-d btn-round btn-xs">Edit</button>
+                      </p>
+                      <p>
+                        <button class="btn btn-border-d btn-round btn-xs" v-on:click="destroyItem(item)">
+                          Delete
+                        </button>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -171,6 +178,14 @@ export default {
     });
   },
   methods: {
+    // DESTROY ------------------------------------------------------>
+    destroyItem: function(inputItem) {
+      axios.delete("/api/items/" + inputItem.id).then(response => {
+        console.log("Item Deleted", response.data);
+        var index = this.items.indexOf(inputItem);
+        this.items.splice(index, 1);
+      });
+    },
     clickInput() {
       this.selectedEvent = "click input";
     },
