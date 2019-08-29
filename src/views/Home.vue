@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <h1>{{ message }}</h1>
+    <div style="text-align: center;">
+      <p>
+        <a class="btn btn-border-d btn-round btn-lg" href="/signup" role="button">Let's Get Started!</a>
+      </p>
+      <h1>{{ message }}</h1>
+    </div>
   </div>
 </template>
 
