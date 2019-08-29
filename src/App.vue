@@ -7,7 +7,8 @@
       <div class="overlay-menu-inner">
         <nav class="overlay-menu-nav">
           <ul id="nav">
-            <li><a href="/">Home</a></li>
+            <li><a v-if="!jwt" title="Home" href="/">Home</a></li>
+            <li><a href="/home" title="Home" v-if="jwt">Home</a></li>
 
             <li class="slidedown">
               <a href="#">Pantry Items</a>
@@ -74,7 +75,8 @@
           <!-- /ICONS NAVBAR -->
 
           <ul class="extra-navbar nav navbar-nav navbar-right">
-            <li><a href="/" title="Home">Home</a></li>
+            <li><a href="/home" title="Home" v-if="jwt">Home</a></li>
+            <li><a href="/" title="Home" v-if="!jwt">Home</a></li>
             <li><a href="/login" title="Login" v-if="!jwt">Login</a></li>
             <li><a href="/signup" title="SignUp" v-if="!jwt">Sign Up</a></li>
             <li><a href="/logout" title="Logout" v-if="jwt">Logout</a></li>

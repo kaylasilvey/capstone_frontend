@@ -3,7 +3,7 @@
     <div class="container location">
       <section class="module">
         <div class="container">
-          <h2 class="font-alt text-center">My Locations:</h2>
+          <h2 class="font-alt text-center">My Kitchen:</h2>
           <div class="row multi-columns-row">
             <div class="col-sm-6 col-sm-offset-3">
               <!-- ACCORDIONS -->
