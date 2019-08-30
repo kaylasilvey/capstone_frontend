@@ -83,11 +83,11 @@
                 </div>
                 <div class="form-group">
                   Location:
-                  <select v-model="locationID" class="form-control">
+                  <select v-model="location_id" class="form-control">
                     <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
                   </select>
                 </div>
-                <input type="submit" value="Create" class="btn btn-primary" v-on:click="createItem()" />
+                <input type="submit" value="Create" class="btn btn-primary" />
               </form>
             </div>
             <div class="modal-footer">
@@ -172,7 +172,8 @@ export default {
       name: "",
       UOM: "",
       QTY: "",
-      locationID: ""
+      location_id: "",
+      item_id: ""
     };
   },
   created: function() {
@@ -244,19 +245,19 @@ export default {
         .post("/api/items", formData)
         .then(response => {
           console.log("Success", response.data);
+          console.log("Placing the item in its home ...");
           this.$router.push("/items");
-        })
-        .catch(error => console.log(error.response));
-      console.log("Placing the item in its home ...");
-      var formData = new FormData();
-      formData.append("location_id", this.location.id);
-      formData.append("QTY", this.QTY);
-      formData.append("item_id", this.item.id);
-      axios
-        .post("/api/location_items", formData)
-        .then(response => {
-          console.log("Success", response.data);
-          this.$router.push("/location_items");
+          var formData = new FormData();
+          formData.append("location_id", this.location_id);
+          formData.append("QTY", this.QTY);
+          formData.append("item_id", item.last.id);
+          axios
+            .post("/api/location_items", formData)
+            .then(response => {
+              console.log("Success", response.data);
+              this.$router.push("/location_items");
+            })
+            .catch(error => console.log(error.response));
         })
         .catch(error => console.log(error.response));
     }
