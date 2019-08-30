@@ -50,7 +50,7 @@
       >
         Add New Item
       </button>
-      <!-- Modal -->
+      <!-- CREATE Modal ---------------------------------------------->
       <div
         class="modal fade"
         id="exampleModalCenter"
@@ -83,11 +83,11 @@
                 </div>
                 <div class="form-group">
                   Location:
-                  <select v-model="location" class="form-control">
+                  <select v-model="locationID" class="form-control">
                     <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
                   </select>
                 </div>
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" v-on:click="createItem()" />
               </form>
             </div>
             <div class="modal-footer">
@@ -97,7 +97,7 @@
         </div>
       </div>
 
-      <!-- END MODAL -->
+      <!-- END CREATE MODAL --------------------------------------------------->
 
       <section class="module">
         <div class="container">
@@ -167,7 +167,12 @@ export default {
       suggestionAttribute: "name",
       suggestions: [],
       selectedEvent: "",
-      items: []
+      items: [],
+      locations: [],
+      name: "",
+      UOM: "",
+      QTY: "",
+      locationID: ""
     };
   },
   created: function() {
@@ -176,6 +181,13 @@ export default {
       console.log(this.items);
     });
   },
+  created: function() {
+    axios.get("/api/locations").then(response => {
+      this.locations = response.data;
+      console.log(this.locations);
+    });
+  },
+
   methods: {
     // DESTROY ------------------------------------------------------>
     destroyItem: function(inputItem) {
@@ -235,12 +247,11 @@ export default {
           this.$router.push("/items");
         })
         .catch(error => console.log(error.response));
-    },
-    createItem: function() {
       console.log("Placing the item in its home ...");
       var formData = new FormData();
-      formData.append("location", this.location.id);
+      formData.append("location_id", this.location.id);
       formData.append("QTY", this.QTY);
+      formData.append("item_id", this.item.id);
       axios
         .post("/api/location_items", formData)
         .then(response => {
