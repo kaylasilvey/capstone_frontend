@@ -250,7 +250,7 @@ export default {
           var formData = new FormData();
           formData.append("location_id", this.location_id);
           formData.append("QTY", this.QTY);
-          formData.append("item_id", item.last.id);
+          formData.append("item_id", response.data.id);
           axios
             .post("/api/location_items", formData)
             .then(response => {
