@@ -73,12 +73,20 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-
             <div class="modal-body">
-              
+
+            <form v-on:submit.prevent="createLocation()">
+                <div class="form-group">
+                  Name:
+                  <input v-model="name" type="text" class="form-control" />
+                </div>
+                <input type="submit" value="Create" class="btn btn-border-d btn-round btn-sm btn-primary" />
+            </form>
+          
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+              <button type="button" class="btn btn-border-d btn-round btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
           </div>
         </div>
@@ -149,7 +157,9 @@ export default {
   data: function() {
     return {
       message: "MY LOCATIONS",
-      locations: []
+      locations: [],
+      name: "",
+
     };
   },
   created: function() {
@@ -168,6 +178,19 @@ export default {
         this.locations.splice(index, 1);
       });
     },
+    // CREATE -------------------------------------------------------->
+     createLocation: function() {
+      console.log("Creating Location ...");
+      var formData = new FormData();
+      formData.append("name", this.name);
+      axios
+        .post("/api/locations", formData)
+        .then(response => {
+        console.log("Success", response.data);
+        this.$router.push("/locations");
+        })
+        .catch(error => console.log(error.response));
+    }
   }
 };
 </script>

@@ -255,7 +255,7 @@ export default {
             .post("/api/location_items", formData)
             .then(response => {
               console.log("Success", response.data);
-              this.$router.push("/location_items");
+              this.$router.push("/items");
             })
             .catch(error => console.log(error.response));
         })
