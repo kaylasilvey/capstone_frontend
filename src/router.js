@@ -8,6 +8,7 @@ import Logout from "./views/Logout.vue";
 import Signup from "./views/Signup.vue";
 import ItemNew from "./views/ItemNew.vue";
 import UserHome from "./views/UserHome.vue";
+import Lists from "./views/Lists.vue";
 
 Vue.use(Router);
 
@@ -54,6 +55,11 @@ export default new Router({
       path: "/home",
       name: "userhome",
       component: UserHome
+    },
+    {
+      path: "/lists",
+      name: "lists",
+      component: Lists
     }
   ]
 });
