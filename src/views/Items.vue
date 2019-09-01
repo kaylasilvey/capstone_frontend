@@ -51,7 +51,56 @@
                   <div class="panel-body" v-for="location in item.location">
                     <p>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</p>
                     <p>
-                      <button class="btn btn-border-d btn-round btn-xs">Edit</button>
+                      <button 
+                      type="submit"
+                      class="btn btn-border-d btn-round btn-xs" 
+                      data-toggle="modal"
+                      :data-target="`#editModal${item.id}Center`">Edit</button>
+                       <div
+                          class="modal fade"
+                          :id="`editModal${item.id}Center`"
+                          tabindex="-1"
+                          role="dialog"
+                          :aria-labelledby="`editModal${item.id}CenterTitle`"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" :id="`editModal${item.id}CenterTitle`">Update</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form v-on:submit.prevent="updateItem(item)">
+                                  <div class="form-group">
+                                    Name:
+                                    <input v-model="edit_name" type="text" class="form-control" value="item.name"/>
+                                  </div>
+                                  <div class="form-group">
+                                    UOM:
+                                    <input v-model="edit_UOM" type="text" class="form-control" />
+                                  </div>
+                                  <div class="form-group">
+                                    Quantity:
+                                    <input v-model="edit_QTY" type="integer" class="form-control" />
+                                  </div>
+                                  <div class="form-group">
+                                    Location:
+                                    <select v-model="edit_location_id" class="form-control">
+                                      <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
+                                    </select>
+                                  </div>
+                                  <input type="submit" value="Update" class="btn btn-primary" />
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </p>
                     <p>
                       <button class="btn btn-border-d btn-round btn-xs" v-on:click="destroyItem(item)">
@@ -144,14 +193,24 @@ export default {
   data: function() {
     return {
       items: [],
-      searchFilter: "",
-      sortAttribute: "name",
-      locations: [],
       name: "",
       UOM: "",
+      location: [],
       QTY: "",
+      location_item_id: "",
+      locations: [],
+      item: [],
+      location_items: [],
+
+      searchFilter: "",
+      sortAttribute: "name",
       location_id: "",
-      item_id: ""
+      item_id: "",
+
+      edit_name: "",
+      edit_UOM: "",
+      edit_QTY: "",
+      edit_location_id: "",
     };
   },
   created: function() {
@@ -159,13 +218,18 @@ export default {
       this.items = response.data;
       console.log(this.items);
     });
-  },
-  alsocreated: function() {
+
     axios.get("/api/locations").then(response => {
       this.locations = response.data;
       console.log(this.locations);
     });
+
+    axios.get("/api/location_items").then(response => {
+      this.location_items = response.data;
+      console.log(this.location_items);
+    });
   },
+
 
   methods: {
     // DESTROY ------------------------------------------------------>
@@ -202,7 +266,29 @@ export default {
             .catch(error => console.log(error.response));
         })
         .catch(error => console.log(error.response));
-    }
-  }
+    },
+
+     // UPDATE ITEM ----------------------------------->
+    updateItem: function(inputItem) {
+      var params ={
+      name: this.edit_name,
+      UOM: this.edit_UOM,
+      QTY: this.edit_QTY,
+      location_id: this.edit_location_id,
+      };
+      axios.patch("/api/items/" + inputItem.id, params).then(response => { 
+        console.log("Item Updated", response.data);
+        inputItem.name = this.edit_name;
+        inputItem.UOM = this.edit_UOM;
+        axios.patch("/api/location_items/" + inputItem.id, params)
+          .then(response => {
+          console.log("Location Updated", response.data);
+          inputItem.QTY = this.edit_QTY;
+          inputItem.location_id = this.edit_location_id;
+      })
+      .catch(error => console.warn(error.response));
+    })
+  },
+}
 };
 </script>
