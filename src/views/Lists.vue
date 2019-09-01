@@ -32,6 +32,7 @@
                       <p>{{ item.name }} | {{ item.QTY }}
                         <p>
                         <button class="btn btn-border-d btn-round btn-xs">Edit</button>
+                        <button class="btn btn-border-d btn-round btn-xs">Delete</button>
                       </p>
                       </p>
                     </div>

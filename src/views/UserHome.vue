@@ -46,7 +46,7 @@
 
             <!-- PORTFOLIO ITEM -->
             <div class="work-item design">
-              <a href="#">
+              <a href="/lists">
                 <img src="assets/images/blank-page.jpg" alt="" />
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Grocery Lists</h3>

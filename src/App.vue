@@ -34,7 +34,7 @@
               <a href="#">Grocery Lists</a>
               <ul>
                 <li><a href="#">Create New List</a></li>
-                <li><a href="#">View All Lists</a></li>
+                <li><a href="/lists">View All Lists</a></li>
               </ul>
             </li>
 
