@@ -11,36 +11,65 @@
     <!-- SEARCH BAR -->
 
     <section class="module">
-      <div class="col-sm-12 text-center">
-        <div id="vue-instant">
-          <label>{{ selectedEvent }}</label>
-          <vue-instant
-            :suggestOnAllWords="true"
-            :suggestion-attribute="suggestionAttribute"
-            v-model="value"
-            :disabled="false"
-            @input="changed"
-            @click-input="clickInput"
-            @click-button="clickButton"
-            @selected="selected"
-            @enter="enter"
-            @key-up="keyUp"
-            @key-down="keyDown"
-            @key-right="keyRight"
-            @clear="clear"
-            @escape="escape"
-            :show-autocomplete="true"
-            :autofocus="false"
-            :suggestions="suggestions"
-            name="customName"
-            placeholder="Search all Pantry Items"
-            type="google"
-          ></vue-instant>
+      <div class="container form-group">
+        <h2>Search All Items:</h2>
+        <br />
+        <input v-model="searchFilter" type="text" list="names" class="form-control text-center" />
+        <!--    <datalist id="names">
+          <option v-for="item in items">{{ item.name }}</option>
+        </datalist> -->
+        <!-- ITEMS LIST ----->
+
+        <div class="row multi-columns-row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <!-- ACCORDIONS -->
+            <div class="panel-group" id="accordion">
+              <div
+                class="panel panel-default"
+                v-for="item in orderBy(filterBy(items, searchFilter, 'name'), sortAttribute)"
+                v-bind:key="item.id"
+              >
+                <div class="panel-heading">
+                  <h4 class="panel-title font-alt">
+                    <a
+                      data-toggle="collapse"
+                      data-parent="#accordion"
+                      v-bind:href="`#support${item.id}`"
+                      aria-expanded="false"
+                      class="collapsed"
+                    >
+                      {{ item.name }}
+                    </a>
+                  </h4>
+                </div>
+                <div
+                  v-bind:id="`support${item.id}`"
+                  class="panel-collapse collapse"
+                  aria-expanded="false"
+                  style="height: 0px;"
+                >
+                  <div class="panel-body" v-for="location in item.location">
+                    <p>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</p>
+                    <p>
+                      <button class="btn btn-border-d btn-round btn-xs">Edit</button>
+                    </p>
+                    <p>
+                      <button class="btn btn-border-d btn-round btn-xs" v-on:click="destroyItem(item)">
+                        Delete
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /ACCORDIONS -->
+          </div>
         </div>
       </div>
-
-      <!-- END SEARCH BAR -->
-
+    </section>
+    <!-- END SEARCH BAR -->
+    <!-- CREATE ITEM MODAL ------->
+    <section>
       <!-- New Item Modal -->
       <button
         type="submit"
@@ -98,53 +127,8 @@
       </div>
 
       <!-- END CREATE MODAL --------------------------------------------------->
-
-      <section class="module">
-        <div class="container">
-          <div class="row multi-columns-row">
-            <div class="col-sm-6 col-sm-offset-3">
-              <!-- ACCORDIONS -->
-              <div class="panel-group" id="accordion">
-                <div class="panel panel-default" v-for="item in items">
-                  <div class="panel-heading">
-                    <h4 class="panel-title font-alt">
-                      <a
-                        data-toggle="collapse"
-                        data-parent="#accordion"
-                        v-bind:href="`#support${item.id}`"
-                        aria-expanded="false"
-                        class="collapsed"
-                      >
-                        {{ item.name }}
-                      </a>
-                    </h4>
-                  </div>
-                  <div
-                    v-bind:id="`support${item.id}`"
-                    class="panel-collapse collapse"
-                    aria-expanded="false"
-                    style="height: 0px;"
-                  >
-                    <div class="panel-body" v-for="location in item.location">
-                      <p>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</p>
-                      <p>
-                        <button class="btn btn-border-d btn-round btn-xs">Edit</button>
-                      </p>
-                      <p>
-                        <button class="btn btn-border-d btn-round btn-xs" v-on:click="destroyItem(item)">
-                          Delete
-                        </button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /ACCORDIONS -->
-            </div>
-          </div>
-        </div>
-      </section>
     </section>
+    <!-- END CREATE ITEM MODAL --------------->
   </div>
 </template>
 
@@ -153,21 +137,15 @@
 <script>
 import Vue from "vue";
 import axios from "axios";
-import "vue-instant/dist/vue-instant.css";
-import VueInstant from "vue-instant";
 import Vue2Filters from "vue2-filters";
-
-Vue.use(VueInstant);
 
 export default {
   mixins: [Vue2Filters.mixin],
   data: function() {
     return {
-      value: "",
-      suggestionAttribute: "name",
-      suggestions: [],
-      selectedEvent: "",
       items: [],
+      searchFilter: "",
+      sortAttribute: "name",
       locations: [],
       name: "",
       UOM: "",
@@ -182,7 +160,7 @@ export default {
       console.log(this.items);
     });
   },
-  created: function() {
+  alsocreated: function() {
     axios.get("/api/locations").then(response => {
       this.locations = response.data;
       console.log(this.locations);
@@ -198,44 +176,8 @@ export default {
         this.items.splice(index, 1);
       });
     },
-    // SEARCH BAR METHODS ------------------------------------>
-    clickInput() {
-      this.selectedEvent = "click input";
-    },
-    clickButton() {
-      this.selectedEvent = "click button";
-    },
-    selected() {
-      this.selectedEvent = "selection changed";
-    },
-    enter() {
-      this.selectedEvent = "enter";
-    },
-    keyUp: function() {
-      this.selectedEvent = "keyup pressed";
-    },
-    keyDown: function() {
-      this.selectedEvent = "keyDown pressed";
-    },
-    keyRight: function() {
-      this.selectedEvent = "keyRight pressed";
-    },
-    clear: function() {
-      this.selectedEvent = "clear input";
-    },
-    escape: function() {
-      this.selectedEvent = "escape";
-    },
-    changed: function() {
-      var that = this;
-      this.suggestions = [];
-      axios.get("/api/items?q=" + this.value).then(function(response) {
-        response.data.forEach(function(a) {
-          that.suggestions.push(a);
-        });
-      });
-    },
-    // CREATE ITEM (NEED TO FINISH...) ----------------------------------->
+
+    // CREATE ITEM ----------------------------------->
     createItem: function() {
       console.log("Creating Item ...");
       var formData = new FormData();

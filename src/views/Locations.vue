@@ -94,9 +94,6 @@
 
       <!-- END EDIT MODAL -->
 
-
-
-
 <p>
         <!-- EDIT LOCATION -------------------------->
  
