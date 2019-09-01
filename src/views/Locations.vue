@@ -99,7 +99,7 @@
 
   <button 
     type="submit"
-    class="btn btn-border-d btn-round btn-xs" 
+    class="btn btn-border-d btn-round btn-lg" 
     data-toggle="modal"
     data-target="#editLocationModalCenter">Edit Location</button>
      <div
@@ -139,7 +139,49 @@
           </div>
         </div>
       </div>
-  
+  <p>
+  <!-- DELETE LOCATION --------------------->
+    <button 
+    type="submit"
+    class="btn btn-border-d btn-round btn-lg" 
+    data-toggle="modal"
+    data-target="#deleteLocationModalCenter">Delete Location</button>
+     <div
+        class="modal fade"
+        id="deleteLocationModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="deleteLocationModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteLocationModalCenterTitle">Delete</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form v-on:submit.prevent="destroyLocation(location)">
+                <div class="form-group">
+                  Select Location to Delete:
+                  <select v-model="location_id" class="form-control">
+                    <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
+                  </select>
+                  <p> Note: this will delete the location and all items in it - to save your item info try editing the location instead!</p>
+                </div>
+                <input type="submit" value="Delete" class="btn btn-primary" />
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</p>
       <!-- END EDIT MODAL -->
 </div>
       </section>
@@ -174,7 +216,10 @@ export default {
   methods: {
      // DESTROY ------------------------------------------------------>
     destroyLocation: function(inputLocation) {
-      axios.delete("/api/locations/" + inputLocation.id).then(response => {
+      var params = {
+        location_id: this.location_id
+      }
+      axios.delete("/api/locations/" + this.location_id).then(response => {
         console.log("Location Deleted", response.data);
         var index = this.locations.indexOf(inputLocation);
         this.locations.splice(index, 1);
