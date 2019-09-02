@@ -37,7 +37,7 @@
                 <li><a href="/lists">View All Lists</a></li>
               </ul>
             </li>
-
+            <li><a href="/recipes">Recipes</a></li>
             <li><a href="#">My Account</a></li>
           </ul>
         </nav>

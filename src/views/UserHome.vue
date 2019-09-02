@@ -60,7 +60,7 @@
 
             <!-- PORTFOLIO ITEM -->
             <div class="work-item design">
-              <a href="#">
+              <a href="/recipes">
                 <img src="assets/images/baking-2.jpg" alt="" />
                 <div class="work-caption font-alt">
                   <h3 class="work-title">Recipes</h3>

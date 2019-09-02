@@ -9,6 +9,7 @@ import Signup from "./views/Signup.vue";
 import ItemNew from "./views/ItemNew.vue";
 import UserHome from "./views/UserHome.vue";
 import Lists from "./views/Lists.vue";
+import Recipes from "./views/Recipe.vue";
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ export default new Router({
       path: "/lists",
       name: "lists",
       component: Lists
+    },
+    {
+      path: "/recipes",
+      name: "recipes",
+      component: Recipes
     }
   ]
 });
