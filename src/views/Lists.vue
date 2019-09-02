@@ -13,15 +13,27 @@
       <div class="row multi-columns-row">
         <div class="col-10" <div role="tabpanel">
           <ul class="nav nav-tabs font-alt" role="tablist">
-            <li class="" v-for="list in lists"><a v-bind:href="`#category${list.id}`" data-toggle="tab" aria-expanded="true" v-on:click="setID=list.id, setList=current.list">{{list.name}}</a></li>
+            <li class="" v-for="list in lists"><a v-bind:href="`#category${list.id}`" data-toggle="tab" aria-expanded="true" v-on:click="setID=list.id, setList=list.item" >{{list.name}}</a></li>
           </ul>
 
           <div class="tab-content">
             <div class="tab-pane" v-bind:id="`category${setID}`">
+              <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">QTY | UOM | Item </span>
+                    </div>
+                    <input type="text" v-model="QTY" aria-label="QTY" class="form-control col-sm-2" aria-describedby="button-addon2">
+                    <input type="text" v-model="UOM" aria-label="UOM" class="form-control col-sm-2" aria-describedby="button-addon2">
+                    <input type="text" v-model="name" aria-label="name" class="form-control col-sm-6" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="Add Item" id="button-addon2" v-on:click="addItem()">Add Item</button>
+                    </div>
+              </div>
               <ul>
-                <li v-for="item in setList.items">
-                
-              </li>{{item.name}}
+                <li v-for="item in setList">
+
+                {{item.QTY}} | {{item.UOM}} | {{item.name}}
+              </li>
             </ul>
             </div>
           </div>
@@ -106,10 +118,24 @@ export default {
     axios.get("/api/lists").then(response => {
       this.lists = response.data;
       console.log(this.lists);
+      console.log(this.setList);
     });
   },
 
   methods: {
+      // ADD ITEM ---------------------------------------------------->
+
+      addItem: function() {
+        console.log("adding item to list");
+        var params ={
+          QTY: this.QTY,
+          UOM: this.UOM,
+          name: this.name,
+          
+        };
+        axios
+          .post("api/list_items")
+      },
      // DESTROY ------------------------------------------------------>
     
     destroyListCategory: function(inputList) {

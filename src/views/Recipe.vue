@@ -9,27 +9,29 @@
             <div class="post">
               <div class="post-media">
                 <a href="blog-single.html">
+                  <!-- recipe in recipes -->
                   <img src="assets/images/blog/blog-1.jpg" alt="" />
+                  <!-- recipe image_url -->
                 </a>
               </div>
               <div class="post-meta font-alt">
                 By
-                <a href="#">Mark Stone</a>
-                / 23 November / 3 comm.
+                <a href="#">Publisher</a>
+                <!-- recipe publisher -->
               </div>
               <div class="post-header">
                 <h4 class="post-title font-alt">
-                  <a href="blog-single.html">The European languages are members</a>
+                  <a href="blog-single.html">TITLE</a>
+                  <!-- recipe title  -->
                 </h4>
               </div>
               <div class="post-entry">
                 <p>
-                  The European languages are members of the same family. Their separate existence is a myth. For
-                  science, music, sport, etc, Europe uses the same vocabulary.
+                  <!-- {{ recipe source_url  }} -->
                 </p>
               </div>
               <div class="post-more-link font-alt">
-                <a href="blog-single.html">Read more</a>
+                <a href="#">Ingredients</a>
               </div>
             </div>
           </div>
@@ -211,5 +213,42 @@
       </div>
     </section>
     <!-- /BLOG 3 COLUMN -->
+    <h1>Recipes</h1>
+    <p>{{ recipes }}</p>
+    <button v-on:click="getRecipes()">Get recipes</button>
   </div>
 </template>
+
+<style></style>
+
+<script>
+import axios from "axios";
+
+export default {
+  data: function() {
+    return {
+      recipes: [],
+      image_url: "",
+      source_url: "",
+      f2f_url: "",
+      title: "",
+      publisher: "",
+      publisher_url: "",
+      page: "",
+      ingredients: [],
+      ingredient: ""
+    };
+  },
+  created: function() {},
+
+  methods: {
+    getRecipes: function() {
+      var ingredients = "miso,corn";
+      axios.get("/api/items/recipes?ingredients=" + ingredients).then(response => {
+        this.recipes = response.data;
+        console.log(this.recipes);
+      });
+    }
+  }
+};
+</script>
