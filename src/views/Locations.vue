@@ -92,7 +92,6 @@
         </div>
       </div>
 
-      <!-- END EDIT MODAL -->
         <!-- EDIT LOCATION -------------------------->
  
  <!-- Edit LOCATION Button -->
