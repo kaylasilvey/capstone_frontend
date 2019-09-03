@@ -1,18 +1,18 @@
 <template>
-  <div id="recipes">
+  <div id="recipes text-center">
     <!-- BLOG 3 COLUMN -->
     <section class="module text-center">
       <h1>Recipes</h1>
       <p>Because there's food at home.</p>
       <br />
-      <div class="input-group mb-6">
+      <div class="input-group mb-6 text-center">
         <input
           v-model="ingredient"
           type="text"
-          list="ingredients"
+          list="items"
           class="form-control text-center"
           placeholder="Search All Pantry Items"
-          aria-label="ingredients"
+          aria-label="items"
           aria-describedby="button-addingredient"
         />
         <div class="input-group-append">
@@ -20,10 +20,22 @@
             Add Ingredient to Recipe Search
           </button>
         </div>
-        <h4>Search for Recipes containing:</h4>
-        <p v-for="ingredient in ingredients">{{ ingredient }}</p>
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Search for Recipes containing:</label>
+            <div class="form-check" v-for="ingredient in ingredients">
+              <input class="form-check-input" type="checkbox" value="" :id="`ingredient${ingredient}`" />
+              <label class="form-check-label" :for="`ingredient${ingredient}`">
+                {{ ingredient }}
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">
+            Remove From Search List
+          </button>
+        </form>
       </div>
-      <datalist id="ingredients" class="text-right">
+      <datalist id="items" class="text-right">
         <option v-for="item in items">{{ item.name }}</option>
       </datalist>
 
@@ -156,7 +168,9 @@ export default {
 
   methods: {
     getRecipes: function() {
-      var ingredients = "miso,corn";
+      var ingredients = this.ingredients;
+      var ingredients = ingredients.toString();
+      console.log(ingredients);
       axios.get("/api/items/recipes?ingredients=" + ingredients).then(response => {
         this.recipes = response.data;
         console.log(this.recipes);
@@ -164,7 +178,7 @@ export default {
     },
     addIngredient: function() {
       this.ingredients.push(this.ingredient);
-      console.log(ingredients);
+      console.log(this.ingredients);
     }
   }
 };
