@@ -1,7 +1,36 @@
 <template>
   <div id="recipes">
     <!-- BLOG 3 COLUMN -->
-    <section class="module">
+    <section class="module text-center">
+      <h1>Recipes</h1>
+      <p>Because there's food at home.</p>
+      <br />
+      <div class="input-group mb-6">
+        <input
+          v-model="ingredient"
+          type="text"
+          list="ingredients"
+          class="form-control text-center"
+          placeholder="Search All Pantry Items"
+          aria-label="ingredients"
+          aria-describedby="button-addingredient"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-addingredient" v-on:click="addIngredient">
+            Add Ingredient to Recipe Search
+          </button>
+        </div>
+        <h4>Search for Recipes containing:</h4>
+        <p v-for="ingredient in ingredients">{{ ingredient }}</p>
+      </div>
+      <datalist id="ingredients" class="text-right">
+        <option v-for="item in items">{{ item.name }}</option>
+      </datalist>
+
+      <button v-on:click="getRecipes()">Search for Recipes</button>
+
+      <p>{{ recipes }}</p>
+
       <div class="container">
         <div class="row multi-columns-row">
           <!-- POST -->
@@ -67,130 +96,6 @@
             </div>
           </div>
           <!-- /POST -->
-
-          <!-- POST -->
-          <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
-            <div class="post">
-              <div class="post-media">
-                <a href="blog-single.html">
-                  <img src="assets/images/blog/blog-3.jpg" alt="" />
-                </a>
-              </div>
-              <div class="post-meta font-alt">
-                By
-                <a href="#">Mark Stone</a>
-                / 23 November / 3 comm.
-              </div>
-              <div class="post-header">
-                <h4 class="post-title font-alt">
-                  <a href="blog-single.html">It will be as simple as Occidental</a>
-                </h4>
-              </div>
-              <div class="post-entry">
-                <p>
-                  The European languages are members of the same family. Their separate existence is a myth. For
-                  science, music, sport, etc, Europe uses the same vocabulary.
-                </p>
-              </div>
-              <div class="post-more-link font-alt">
-                <a href="blog-single.html">Read more</a>
-              </div>
-            </div>
-          </div>
-          <!-- /POST -->
-
-          <!-- POST -->
-          <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
-            <div class="post">
-              <div class="post-media">
-                <a href="blog-single.html">
-                  <img src="assets/images/blog/blog-4.jpg" alt="" />
-                </a>
-              </div>
-              <div class="post-meta font-alt">
-                By
-                <a href="#">Mark Stone</a>
-                / 23 November / 3 comm.
-              </div>
-              <div class="post-header">
-                <h4 class="post-title font-alt">
-                  <a href="blog-single.html">The European languages are members</a>
-                </h4>
-              </div>
-              <div class="post-entry">
-                <p>
-                  The European languages are members of the same family. Their separate existence is a myth. For
-                  science, music, sport, etc, Europe uses the same vocabulary.
-                </p>
-              </div>
-              <div class="post-more-link font-alt">
-                <a href="blog-single.html">Read more</a>
-              </div>
-            </div>
-          </div>
-          <!-- /POST -->
-
-          <!-- POST -->
-          <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
-            <div class="post">
-              <div class="post-media">
-                <a href="blog-single.html">
-                  <img src="assets/images/blog/blog-5.jpg" alt="" />
-                </a>
-              </div>
-              <div class="post-meta font-alt">
-                By
-                <a href="#">Mark Stone</a>
-                / 6 November / 2 comm.
-              </div>
-              <div class="post-header">
-                <h4 class="post-title font-alt">
-                  <a href="blog-single.html">The new common language will be</a>
-                </h4>
-              </div>
-              <div class="post-entry">
-                <p>
-                  The European languages are members of the same family. Their separate existence is a myth. For
-                  science, music, sport, etc, Europe uses the same vocabulary.
-                </p>
-              </div>
-              <div class="post-more-link font-alt">
-                <a href="blog-single.html">Read more</a>
-              </div>
-            </div>
-          </div>
-          <!-- /POST -->
-
-          <!-- POST -->
-          <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
-            <div class="post">
-              <div class="post-media">
-                <a href="blog-single.html">
-                  <img src="assets/images/blog/blog-6.jpg" alt="" />
-                </a>
-              </div>
-              <div class="post-meta font-alt">
-                By
-                <a href="#">Mark Stone</a>
-                / 23 November / 3 comm.
-              </div>
-              <div class="post-header">
-                <h4 class="post-title font-alt">
-                  <a href="blog-single.html">It will be as simple as Occidental</a>
-                </h4>
-              </div>
-              <div class="post-entry">
-                <p>
-                  The European languages are members of the same family. Their separate existence is a myth. For
-                  science, music, sport, etc, Europe uses the same vocabulary.
-                </p>
-              </div>
-              <div class="post-more-link font-alt">
-                <a href="blog-single.html">Read more</a>
-              </div>
-            </div>
-          </div>
-          <!-- /POST -->
         </div>
 
         <!-- PAGINATION -->
@@ -213,9 +118,6 @@
       </div>
     </section>
     <!-- /BLOG 3 COLUMN -->
-    <h1>Recipes</h1>
-    <p>{{ recipes }}</p>
-    <button v-on:click="getRecipes()">Get recipes</button>
   </div>
 </template>
 
@@ -223,11 +125,15 @@
 
 <script>
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       recipes: [],
+      items: [],
+      item: "",
       image_url: "",
       source_url: "",
       f2f_url: "",
@@ -236,10 +142,17 @@ export default {
       publisher_url: "",
       page: "",
       ingredients: [],
-      ingredient: ""
+      ingredient: "",
+      searchFilter: "",
+      sortAttribute: "name"
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/api/items").then(response => {
+      this.items = response.data;
+      console.log(this.items);
+    });
+  },
 
   methods: {
     getRecipes: function() {
@@ -248,6 +161,10 @@ export default {
         this.recipes = response.data;
         console.log(this.recipes);
       });
+    },
+    addIngredient: function() {
+      this.ingredients.push(this.ingredient);
+      console.log(ingredients);
     }
   }
 };
