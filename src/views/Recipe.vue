@@ -30,7 +30,8 @@
       </div>
 
       <datalist id="items">
-        <option v-for="item in items">{{ item.name }}</option>
+        <option v-for="item in orderBy(filterBy(items, searchFilter, 'name'), sortAttribute)"
+              v-bind:key="item.id"">{{ item.name }} </option>
       </datalist>
 
       <!-- END INGREDIENT SEARCH BAR --------------------------------------------------->
