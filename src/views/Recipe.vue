@@ -79,10 +79,9 @@
           <div class="post">
             <div class="post-media">
               <a href="blog-single.html">
-                <img :src="`${recipe.image_url}`" alt="" />
+                <img class="crop" :src="`${recipe.image_url}`" alt="" />
               </a>
             </div>
-
             <div class="post-meta font-alt">
               By
               <a :href="`${recipe.source_url}`">{{ recipe.publisher }}</a>
@@ -159,6 +158,12 @@
 .buttons button {
   width: 30%;
   float: center;
+}
+
+.crop {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
 }
 </style>
 
