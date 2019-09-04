@@ -1,128 +1,166 @@
 <template>
-  <div id="recipes text-center">
-    <!-- BLOG 3 COLUMN -->
-    <section class="module text-center">
-      <h2 class="module-title font-alt">Recipes</h2>
-      <div class="module-subtitle font-serif">Because there's food at home.</div>
-      <br />
-      <div class="input-group mb-6 text-center">
-        <input
-          v-model="ingredient"
-          type="text"
-          list="items"
-          class="form-control text-center"
-          placeholder="Search All Pantry Items"
-          aria-label="items"
-          aria-describedby="button-addingredient"
-        />
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addingredient" v-on:click="addIngredient">
-            Add Ingredient to Recipe Search
-          </button>
-        </div>
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Search for Recipes containing:</label>
-            <div class="form-check" v-for="ingredient in ingredients">
-              <input class="form-check-input" type="checkbox" value="" :id="`ingredient${ingredient}`" />
-              <label class="form-check-label" :for="`ingredient${ingredient}`">
-                {{ ingredient }}
-              </label>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary btn-sm">
-            Remove From Search List
-          </button>
-        </form>
+  <div id="recipes">
+    <div class="container">
+      <h2 class="font-alt text-center">Recipes</h2>
+      <div class="font-serif text-center" style="padding-bottom: 25px">Because there's food at home.</div>
+      <hr class="divider" />
+    </div>
+
+    <!-- INGREDIENT SEARCH BAR --------------------------------------------------------->
+
+    <div class="container form-group" style="padding-bottom: 50px">
+      <input
+        v-model="ingredient"
+        type="text"
+        list="items"
+        class="form-control"
+        placeholder="SEARCH ALL PANTRY ITEMS*"
+        aria-label="items"
+        aria-describedby="button-addingredient"
+      />
+      <div class="text-center">
+        <button
+          class="btn btn-block btn-round btn-d"
+          type="button"
+          id="button-addingredient"
+          v-on:click="addIngredient"
+        >
+          Add Ingredient to Recipe Search
+        </button>
       </div>
-    </section>
-      <datalist id="items" class="text-right">
+
+      <datalist id="items">
         <option v-for="item in items">{{ item.name }}</option>
       </datalist>
 
-      <button v-on:click="getRecipes()">Search for Recipes</button>
+      <!-- END INGREDIENT SEARCH BAR --------------------------------------------------->
+
+      <!-- INGREDIENT SEARCH LIST ------------------------------------------------------>
 
       <div class="container">
-        <div class="row multi-columns-row">
-          <!-- POST -->
-          <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
-            <div class="post" v-for="recipe in recipes">
-              <div class="post-media">
-                <a href="blog-single.html">
-                  <!-- recipe in recipes -->
-                  <img :src="`${recipe.image_url}`" alt="" />
-                  <!-- recipe image_url -->
-                </a>
-              </div>
-              <div class="post-meta font-alt">
-                By
-                <a :href="`${recipe.source_url}`">{{ recipe.publisher }}</a>
-                <!-- recipe publisher -->
-              </div>
-              <div class="post-header">
-                <h4 class="post-title font-alt">
-                  <a :href="`${recipe.source_url}`">{{ recipe.title }}</a>
-                  <!-- recipe title  -->
-                </h4>
-              </div>
-<!--INGREDIENTS MODAL --------------------->
-        <!-- Button trigger modal -->
-<a type="a" class="post-more font-alt" data-toggle="modal" data-target="#exampleModalLong">
-  Ingredients
-</a>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{recipe.title}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{recipe.ingredients}}
-      </div>
-      <div class="modal-footer">
-      
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /INGREDIENTS MODAL --------------------->
-
-            </div>
-          </div>
-          <!-- /POST -->
-        </div>
-      </div>
-
-        <!-- PAGINATION -->
         <div class="row">
-          <div class="col-sm-12 text-center m-t-60">
-            <ul class="pagination font-alt">
-              <li>
-                <a href="#"><i class="fa fa-angle-left"></i></a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li class="active"><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
-              </li>
-            </ul>
+          <div class="col-sm-6 col-sm-offset-3">
+            <form>
+              <div class="form-group font-alt">
+                <h6 class="font-alt" style="font-size: 12px;">Search for Recipes Containing:</h6>
+                <hr class="divider" />
+              </div>
+
+              <blockquote>
+                <div class="form-check" v-for="ingredient in ingredients">
+                  <input class="form-check-input" type="checkbox" value="" :id="`ingredient${ingredient}`" />
+                  <label class="form-check-label panel-body" style="font-size: 14px;" :for="`ingredient${ingredient}`">
+                    {{ ingredient }}
+                  </label>
+                </div>
+              </blockquote>
+            </form>
+            <button type="submit" class="btn btn-primary btn-border-d btn-round button">
+              Remove From List
+            </button>
+            <button class="btn btn-border-d btn-round button" v-on:click="getRecipes()">
+              Search for Recipes
+            </button>
           </div>
         </div>
-        <!-- /PAGINATION -->
       </div>
-    </section>
-    <!-- /BLOG 3 COLUMN -->
+      <!-- END INGREDIENT SEARCH LIST -------------------------------------------------->
+    </div>
+
+    <!-- RECIPE SEARCH  -------------------------------------------------------------->
+
+    <!-- RECIPE RESULTS -------------------------------------------------------------->
+
+    <div class="container">
+      <div class="row multi-columns-row">
+        <!-- INDIVIDUAL RECIPE POST -------------------------------------------------->
+
+        <div class="col-sm-6 col-md-4 col-lg-4 m-b-60" v-for="recipe in recipes">
+          <div class="post">
+            <div class="post-media">
+              <a href="blog-single.html">
+                <img :src="`${recipe.image_url}`" alt="" />
+              </a>
+            </div>
+
+            <div class="post-meta font-alt">
+              By
+              <a :href="`${recipe.source_url}`">{{ recipe.publisher }}</a>
+            </div>
+            <div class="post-header">
+              <h4 class="post-title font-alt">
+                <a :href="`${recipe.source_url}`">{{ recipe.title }}</a>
+              </h4>
+            </div>
+
+            <!-- MODAL TRIGGER ------------------------------------------------------->
+
+            <a type="a" class="post-more font-alt" data-toggle="modal" data-target="#exampleModalLong">
+              Ingredients
+            </a>
+
+            <!--INGREDIENTS MODAL ---------------------------------------------------->
+
+            <div
+              class="modal fade"
+              id="exampleModalLong"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLongTitle"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">{{ recipe.title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    {{ recipe.ingredients }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- END INGREDIENTS MODAL ----------------------------------------------->
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGINATION ---------------------------------------------------------------->
+
+      <div class="row">
+        <div class="col-sm-12 text-center m-t-60">
+          <ul class="pagination font-alt">
+            <li>
+              <a href="#"><i class="fa fa-angle-left"></i></a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li class="active"><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li>
+              <a href="#"><i class="fa fa-angle-right"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- END PAGINATION -------------------------------------------------------------->
+    </div>
   </div>
 </template>
 
-<style></style>
+<style>
+.buttons button {
+  width: 30%;
+  float: center;
+}
+</style>
 
 <script>
 import axios from "axios";

@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <!-- OVERLAY MENU -->
+    <!-- PAGE LOADER ------------------------------------------------------------------->
+    <div class="page-loader" style="display: none;">
+      <div class="loader" style="display: none;">Loading...</div>
+    </div>
+    <!-- END PAGE LOADER ---------------------------------------------------------------->
+
+    <!-- OVERLAY MENU ------------------------------------------------------------------->
     <div id="overlay-menu" class="overlay-menu">
       <a href="#" id="overlay-menu-hide" class="navigation-hide"><i class="ion-close-round"></i></a>
 
@@ -26,7 +32,7 @@
                     {{ location.name }}
                   </a>
                 </li>
-                <li><a href="/locations/new">Add New Location</a></li>
+                <li><a href="/locations">View All Locations</a></li>
               </ul>
             </li>
 
@@ -53,14 +59,15 @@
         </div>
       </div>
     </div>
-    <!-- /OVERLAY MENU -->
+    <!-- /OVERLAY MENU ----------------------------------------------------------------->
 
     <div class="wrapper">
-      <!-- NAVIGATION -->
+      <!-- NAVIGATION ------------------------------------------------------------------>
+
       <nav class="navbar navbar-custom navbar-transparent navbar-light navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
-            <!-- YOU LOGO HERE -->
+            <!-- LOGO HERE ------------------------------------------------------------->
             <a class="navbar-brand" href="/" v-if="!jwt">
               <img src="assets/images/faviconblack.png" width="45" alt="" />
             </a>
@@ -69,7 +76,7 @@
             </a>
           </div>
 
-          <!-- ICONS NAVBAR -->
+          <!-- ICONS NAVBAR ------------------------------------------------------------>
           <ul id="icons-navbar" class="nav navbar-nav navbar-right">
             <li>
               <a href="#" id="toggle-menu" class="show-overlay" title="Menu">
@@ -79,7 +86,7 @@
               </a>
             </li>
           </ul>
-          <!-- /ICONS NAVBAR -->
+          <!-- END ICONS NAVBAR -------------------------------------------------------->
 
           <ul class="extra-navbar nav navbar-nav navbar-right">
             <li><a href="/" title="Home" v-if="!jwt">Home</a></li>
@@ -90,11 +97,13 @@
           </ul>
         </div>
       </nav>
-      <!-- /NAVIGATION -->
+      <!-- END NAVIGATION -------------------------------------------------------------->
 
-      <!-- HERO -->
+      <!-- HERO ------------------------------------------------------------------------>
+
       <section class="module module-parallax bg-light-30" data-background="assets/images/preptable.jpg">
-        <!-- HERO TEXT -->
+        <!-- HERO TEXT ----------------------------------------------------------------->
+
         <div class="container">
           <div class="row">
             <div class="col-sm-12 text-center">
@@ -103,12 +112,13 @@
             </div>
           </div>
         </div>
-        <!-- /HERO TEXT -->
+        <!-- END HERO TEXT ------------------------------------------------------------->
       </section>
 
       <router-view v-on:changeJwt="setJwt()" />
 
-      <!-- FOOTER -->
+      <!-- FOOTER ---------------------------------------------------------------------->
+
       <footer class="module-sm bg-light">
         <div class="container" style="padding-top: 30px">
           <div class="row">
@@ -140,11 +150,13 @@
           </div>
         </div>
       </footer>
-      <!-- /FOOTER -->
-      <!-- SCROLLTOP -->
+      <!-- END FOOTER ------------------------------------------------------------------>
+
+      <!-- SCROLLTOP ------------------------------------------------------------------->
       <div class="scroll-up">
         <a href="#totop"><i class="fa fa-angle-double-up"></i></a>
       </div>
+      <!-- END SCROLLTOP --------------------------------------------------------------->
     </div>
   </div>
 </template>

@@ -1,183 +1,215 @@
 <template>
-  <div id="items" class="module text-center">
-    <!-- MODULE TITLE -->
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <h2 class="module-title font-alt">Pantry Items</h2>
-      </div>
-    </div>
-    <!-- /MODULE TITLE -->
+  <div id="items">
+    <div class="container">
+      <!-- MODULE TITLE ---------------------------------------------------->
 
-    <!-- SEARCH BAR -->
+      <h1 class="font-alt text-center">My Pantry</h1>
 
-    <section class="module">
+      <!-- /MODULE TITLE ---------------------------------------------------->
+
+      <!-- SEARCH BAR ------------------------------------------------------>
+
       <div class="container form-group">
-        <h2>Search All Items:</h2>
-        <br />
-        <input v-model="searchFilter" type="text" list="names" class="form-control text-center" />
-        <!--    <datalist id="names">
-          <option v-for="item in items">{{ item.name }}</option>
-        </datalist> -->
-        <!-- ITEMS LIST ----->
+        <div style="padding-bottom: 25px">
+          <input
+            v-model="searchFilter"
+            type="text"
+            list="names"
+            class="form-control font-alt col-8"
+            placeholder="SEARCH ALL ITEMS*"
+          />
+        </div>
 
-        <div class="row multi-columns-row">
-          <div class="col-sm-6 col-sm-offset-3">
-            <!-- ACCORDIONS -->
-            <div class="panel-group" id="accordion">
+        <!-- ITEMS LIST --------------------------------------------------------->
+
+        <div class="row">
+          <!-- ITEM ACCORDIONS ------------------------------------------------------>
+
+          <div class="panel-group" id="accordion">
+            <div
+              class="panel panel-default"
+              v-for="item in orderBy(filterBy(items, searchFilter, 'name'), sortAttribute)"
+              v-bind:key="item.id"
+            >
+              <div class="panel-heading">
+                <h4 class="panel-title font-alt">
+                  <a
+                    data-toggle="collapse"
+                    data-parent="#accordion"
+                    v-bind:href="`#support${item.id}`"
+                    aria-expanded="false"
+                    class="collapsed"
+                  >
+                    {{ item.name }}
+                  </a>
+                </h4>
+              </div>
+
               <div
-                class="panel panel-default"
-                v-for="item in orderBy(filterBy(items, searchFilter, 'name'), sortAttribute)"
-                v-bind:key="item.id"
+                v-bind:id="`support${item.id}`"
+                class="panel-collapse collapse"
+                aria-expanded="false"
+                style="height: 0px;"
               >
-                <div class="panel-heading">
-                  <h4 class="panel-title font-alt">
-                    <a
-                      data-toggle="collapse"
-                      data-parent="#accordion"
-                      v-bind:href="`#support${item.id}`"
-                      aria-expanded="false"
-                      class="collapsed"
-                    >
-                      {{ item.name }}
-                    </a>
-                  </h4>
-                </div>
-                <div
-                  v-bind:id="`support${item.id}`"
-                  class="panel-collapse collapse"
-                  aria-expanded="false"
-                  style="height: 0px;"
-                >
-                  <div class="panel-body" v-for="location in item.location">
-                    <p>{{ location.QTY }} | {{ item.UOM }} | {{ location.name }}</p>
-                    <p>
-                      <button 
-                      type="submit"
-                      class="btn btn-border-d btn-round btn-xs" 
-                      data-toggle="modal"
-                      :data-target="`#editModal${item.id}Center`">Edit</button>
-                       <div
-                          class="modal fade"
-                          :id="`editModal${item.id}Center`"
-                          tabindex="-1"
-                          role="dialog"
-                          :aria-labelledby="`editModal${item.id}CenterTitle`"
-                          aria-hidden="true"
-                        >
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" :id="`editModal${item.id}CenterTitle`">Update</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <form v-on:submit.prevent="updateItem(item)">
-                                  <div class="form-group">
-                                    Name:
-                                    <input v-model="edit_name" type="text" class="form-control" value="item.name"/>
-                                  </div>
-                                  <div class="form-group">
-                                    UOM:
-                                    <input v-model="edit_UOM" type="text" class="form-control" />
-                                  </div>
-                                  <div class="form-group">
-                                    Quantity:
-                                    <input v-model="edit_QTY" type="integer" class="form-control" />
-                                  </div>
-                                  <div class="form-group">
-                                    Location:
-                                    <select v-model="edit_location_id" class="form-control">
-                                      <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
-                                    </select>
-                                  </div>
-                                  <input type="submit" value="Update" class="btn btn-primary" />
-                                </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              </div>
-                            </div>
-                          </div>
+                <div class="panel-body" v-for="location in item.location">
+                  {{ location.QTY }} | {{ item.UOM }} | {{ location.name }}
+
+                  <!-- ITEM EDIT MODAL BUTTON --------------------------------------------------------->
+
+                  <button
+                    type="submit"
+                    class="btn btn-g btn-round btn-border-d btn-xs"
+                    data-toggle="modal"
+                    :data-target="`#editModal${item.id}Center`"
+                    style="float: right;"
+                  >
+                    Edit
+                  </button>
+
+                  <!-- ITEM EDIT MODAL --------------------------------------------------------->
+
+                  <div
+                    class="modal fade"
+                    :id="`editModal${item.id}Center`"
+                    tabindex="-1"
+                    role="dialog"
+                    :aria-labelledby="`editModal${item.id}CenterTitle`"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-dialog-centered text-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title font-alt text-center" :id="`editModal${item.id}CenterTitle`">
+                            Update Item
+                          </h5>
+
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
-                    </p>
-                    <p>
-                      <button class="btn btn-border-d btn-round btn-xs" v-on:click="destroyItem(item)">
-                        Delete
-                      </button>
-                    </p>
+
+                        <!-- ITEM EDIT MODAL BODY --------------------------------------------------------->
+
+                        <div class="modal-body">
+                          <form v-on:submit.prevent="updateItem(item)" style="padding-bottom: 25px">
+                            <div class="form-group">
+                              Name:
+                              <input
+                                v-model="edit_name"
+                                type="text"
+                                class="form-control"
+                                value="item.name"
+                                :placeholder="`${item.name}`"
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              UOM:
+                              <input v-model="edit_UOM" type="text" class="form-control" :placeholder="`${item.UOM}`" />
+                            </div>
+
+                            <div class="form-group">
+                              Quantity:
+                              <input v-model="edit_QTY" type="integer" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                              Location:
+                              <select v-model="edit_location_id" class="form-control">
+                                <option v-for="location in locations" :value="location.id">
+                                  {{ location.name }}
+                                </option>
+                              </select>
+                            </div>
+
+                            <input type="submit" value="Update" class="btn btn-b btn-sm btn-primary" />
+                          </form>
+                        </div>
+
+                        <!-- / ITEM EDIT MODAL --------------------------------------------------------->
+                      </div>
+                    </div>
                   </div>
+
+                  <!-- END ITEM EDIT MODAL --------------------------------------------------------->
+
+                  <!-- ITEM DELETE--------------------------------------------------------->
+                  <button
+                    class="btn btn-g btn-border-d btn-round btn-xs"
+                    style="float: right;"
+                    v-on:click="destroyItem(item)"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
-            <!-- /ACCORDIONS -->
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- END SEARCH BAR -->
-    <!-- CREATE ITEM MODAL ------->
-    <section>
-      <!-- New Item Modal -->
-      <button
-        type="submit"
-        class="btn btn-border-d btn-round btn-lg"
-        data-toggle="modal"
-        data-target="#exampleModalCenter"
-      >
-        Add New Item
-      </button>
-      <!-- CREATE Modal ---------------------------------------------->
-      <div
-        class="modal fade"
-        id="exampleModalCenter"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Create New Item</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form v-on:submit.prevent="createItem()">
-                <div class="form-group">
-                  Name:
-                  <input v-model="name" type="text" class="form-control" />
-                </div>
-                <div class="form-group">
-                  UOM:
-                  <input v-model="UOM" type="text" class="form-control" />
-                </div>
-                <div class="form-group">
-                  Quantity:
-                  <input v-model="QTY" type="integer" class="form-control" />
-                </div>
-                <div class="form-group">
-                  Location:
-                  <select v-model="location_id" class="form-control">
-                    <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
-                  </select>
-                </div>
-                <input type="submit" value="Create" class="btn btn-primary" />
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- END CREATE MODAL --------------------------------------------------->
-    </section>
-    <!-- END CREATE ITEM MODAL --------------->
+            <!-- /ACCORDIONS ----------------------------------------------->
+          </div>
+        </div>
+      </div>
+      <!-- END SEARCH BAR ------------------------------------------------------------->
+
+      <!-- CREATE ITEM MODAL ---------------------------------------------------->
+      <section>
+        <div class="text-center" style="padding-bottom: 30px;">
+          <button
+            type="submit"
+            class="btn btn-border-d btn-round btn-lg"
+            data-toggle="modal"
+            data-target="#exampleModalCenter"
+          >
+            Add New Item
+          </button>
+        </div>
+        <!-- CREATE Modal ---------------------------------------------->
+        <div
+          class="modal fade"
+          id="exampleModalCenter"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center font-alt" id="exampleModalCenterTitle">Create New Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form v-on:submit.prevent="createItem()" style="padding-bottom: 25px">
+                  <div class="form-group">
+                    Name:
+                    <input v-model="name" type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    UOM:
+                    <input v-model="UOM" type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    Quantity:
+                    <input v-model="QTY" type="integer" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    Location:
+                    <select v-model="location_id" class="form-control">
+                      <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
+                    </select>
+                  </div>
+                  <input type="submit" value="Create" class="btn btn-b btn-sm btn-primary" />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- END CREATE MODAL --------------------------------------------------->
+      </section>
+    </div>
   </div>
 </template>
 
@@ -211,7 +243,7 @@ export default {
       edit_name: "",
       edit_UOM: "",
       edit_QTY: "",
-      edit_location_id: "",
+      edit_location_id: ""
     };
   },
   created: function() {
@@ -230,7 +262,6 @@ export default {
       console.log(this.location_items);
     });
   },
-
 
   methods: {
     // DESTROY ------------------------------------------------------>
@@ -269,27 +300,28 @@ export default {
         .catch(error => console.log(error.response));
     },
 
-     // UPDATE ITEM ----------------------------------->
+    // UPDATE ITEM ----------------------------------->
     updateItem: function(inputItem) {
-      var params ={
-      name: this.edit_name,
-      UOM: this.edit_UOM,
-      QTY: this.edit_QTY,
-      location_id: this.edit_location_id,
+      var params = {
+        name: this.edit_name,
+        UOM: this.edit_UOM,
+        QTY: this.edit_QTY,
+        location_id: this.edit_location_id
       };
-      axios.patch("/api/items/" + inputItem.id, params).then(response => { 
+      axios.patch("/api/items/" + inputItem.id, params).then(response => {
         console.log("Item Updated", response.data);
         inputItem.name = this.edit_name;
         inputItem.UOM = this.edit_UOM;
-        axios.patch("/api/location_items/" + inputItem.id, params)
+        axios
+          .patch("/api/location_items/" + inputItem.id, params)
           .then(response => {
-          console.log("Location Updated", response.data);
-          inputItem.QTY = this.edit_QTY;
-          inputItem.location_id = this.edit_location_id;
-      })
-      .catch(error => console.warn(error.response));
-    })
-  },
-}
+            console.log("Location Updated", response.data);
+            inputItem.QTY = this.edit_QTY;
+            inputItem.location_id = this.edit_location_id;
+          })
+          .catch(error => console.warn(error.response));
+      });
+    }
+  }
 };
 </script>
