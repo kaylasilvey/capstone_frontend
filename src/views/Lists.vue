@@ -24,7 +24,7 @@
                     </div>
                     <input type="text" v-model="QTY" aria-label="QTY" class="form-control col-sm-2" aria-describedby="button-addon2">
                     <input type="text" v-model="UOM" aria-label="UOM" class="form-control col-sm-2" aria-describedby="button-addon2">
-                    <input type="text" v-model="name" aria-label="name" class="form-control col-sm-6" aria-describedby="button-addon2">
+                    <input type="text" v-model="item" aria-label="name" class="form-control col-sm-6" aria-describedby="button-addon2">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="Add Item" id="button-addon2" v-on:click="addItem()">Add Item</button>
                     </div>
@@ -126,16 +126,33 @@ export default {
       // ADD ITEM ---------------------------------------------------->
 
       addItem: function() {
-        console.log("adding item to list");
-        var params ={
-          QTY: this.QTY,
+      console.log("Creating Item ...");
+      var params ={
+          item: this.item,
           UOM: this.UOM,
-          name: this.name,
-          
         };
-        axios
-          .post("api/list_items")
-      },
+      axios
+        .post("/api/items", params)
+        .then(response => {
+          console.log("Success", response.data);
+          console.log("adding item to list");
+          this.$router.push("/items");
+          var params ={
+            QTY: this.QTY,
+            UOM: this.UOM,
+            item: response.data.id,
+            list_id: this.setID
+          };
+          axios
+            .post("api/list_items", params)
+            .then(response => {
+            console.log("Success", response.data);
+            this.$router.push("/lists")
+            .catch(error => console.log(error.response));
+        })
+        .catch(error => console.log(error.response));
+    });
+    },
      // DESTROY ------------------------------------------------------>
     
     destroyListCategory: function(inputList) {
@@ -180,3 +197,4 @@ export default {
   }
 };
 </script>
+

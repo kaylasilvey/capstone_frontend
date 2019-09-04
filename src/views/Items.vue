@@ -192,6 +192,7 @@ export default {
   mixins: [Vue2Filters.mixin],
   data: function() {
     return {
+      header: "Pantry Items",
       items: [],
       name: "",
       UOM: "",

@@ -2,8 +2,8 @@
   <div id="recipes text-center">
     <!-- BLOG 3 COLUMN -->
     <section class="module text-center">
-      <h1>Recipes</h1>
-      <p>Because there's food at home.</p>
+      <h2 class="module-title font-alt">Recipes</h2>
+      <div class="module-subtitle font-serif">Because there's food at home.</div>
       <br />
       <div class="input-group mb-6 text-center">
         <input
@@ -35,80 +35,69 @@
           </button>
         </form>
       </div>
+    </section>
       <datalist id="items" class="text-right">
         <option v-for="item in items">{{ item.name }}</option>
       </datalist>
 
       <button v-on:click="getRecipes()">Search for Recipes</button>
 
-      <p>{{ recipes }}</p>
-
       <div class="container">
         <div class="row multi-columns-row">
           <!-- POST -->
           <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
-            <div class="post">
+            <div class="post" v-for="recipe in recipes">
               <div class="post-media">
                 <a href="blog-single.html">
                   <!-- recipe in recipes -->
-                  <img src="assets/images/blog/blog-1.jpg" alt="" />
+                  <img :src="`${recipe.image_url}`" alt="" />
                   <!-- recipe image_url -->
                 </a>
               </div>
               <div class="post-meta font-alt">
                 By
-                <a href="#">Publisher</a>
+                <a :href="`${recipe.source_url}`">{{ recipe.publisher }}</a>
                 <!-- recipe publisher -->
               </div>
               <div class="post-header">
                 <h4 class="post-title font-alt">
-                  <a href="blog-single.html">TITLE</a>
+                  <a :href="`${recipe.source_url}`">{{ recipe.title }}</a>
                   <!-- recipe title  -->
                 </h4>
               </div>
-              <div class="post-entry">
-                <p>
-                  <!-- {{ recipe source_url  }} -->
-                </p>
-              </div>
-              <div class="post-more-link font-alt">
-                <a href="#">Ingredients</a>
-              </div>
-            </div>
-          </div>
-          <!-- /POST -->
+<!--INGREDIENTS MODAL --------------------->
+        <!-- Button trigger modal -->
+<a type="a" class="post-more font-alt" data-toggle="modal" data-target="#exampleModalLong">
+  Ingredients
+</a>
 
-          <!-- POST -->
-          <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
-            <div class="post">
-              <div class="post-media">
-                <a href="blog-single.html">
-                  <img src="assets/images/blog/blog-2.jpg" alt="" />
-                </a>
-              </div>
-              <div class="post-meta font-alt">
-                By
-                <a href="#">Mark Stone</a>
-                / 6 November / 2 comm.
-              </div>
-              <div class="post-header">
-                <h4 class="post-title font-alt">
-                  <a href="blog-single.html">The new common language will be</a>
-                </h4>
-              </div>
-              <div class="post-entry">
-                <p>
-                  The European languages are members of the same family. Their separate existence is a myth. For
-                  science, music, sport, etc, Europe uses the same vocabulary.
-                </p>
-              </div>
-              <div class="post-more-link font-alt">
-                <a href="blog-single.html">Read more</a>
-              </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{recipe.title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{recipe.ingredients}}
+      </div>
+      <div class="modal-footer">
+      
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /INGREDIENTS MODAL --------------------->
+
             </div>
           </div>
           <!-- /POST -->
         </div>
+      </div>
 
         <!-- PAGINATION -->
         <div class="row">
@@ -144,6 +133,7 @@ export default {
   data: function() {
     return {
       recipes: [],
+      recipe: "",
       items: [],
       item: "",
       image_url: "",
@@ -172,7 +162,7 @@ export default {
       var ingredients = ingredients.toString();
       console.log(ingredients);
       axios.get("/api/items/recipes?ingredients=" + ingredients).then(response => {
-        this.recipes = response.data;
+        this.recipes = response.data.recipes.recipes;
         console.log(this.recipes);
       });
     },

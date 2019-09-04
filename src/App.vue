@@ -7,8 +7,8 @@
       <div class="overlay-menu-inner">
         <nav class="overlay-menu-nav">
           <ul id="nav">
-            <li><a v-if="!jwt" title="Home" href="/">Home</a></li>
-            <li><a href="/home" title="Home" v-if="jwt">Home</a></li>
+            <li><a title="Home" href="/" v-if="!jwt">Home</a></li>
+            <li><a title="Home" href="/home" v-if="jwt">Home</a></li>
 
             <li class="slidedown">
               <a href="#">Pantry Items</a>
@@ -61,7 +61,12 @@
         <div class="container">
           <div class="navbar-header">
             <!-- YOU LOGO HERE -->
-            <a class="navbar-brand" href="index"><img src="assets/images/favicon.png" width="45" alt="" /></a>
+            <a class="navbar-brand" href="/" v-if="!jwt">
+              <img src="assets/images/faviconblack.png" width="45" alt="" />
+            </a>
+            <a class="navbar-brand" href="/home" v-if="jwt">
+              <img src="assets/images/faviconblack.png" width="45" alt="" />
+            </a>
           </div>
 
           <!-- ICONS NAVBAR -->
@@ -77,8 +82,8 @@
           <!-- /ICONS NAVBAR -->
 
           <ul class="extra-navbar nav navbar-nav navbar-right">
-            <li><a href="/home" title="Home" v-if="jwt">Home</a></li>
             <li><a href="/" title="Home" v-if="!jwt">Home</a></li>
+            <li><a title="Home" href="/home" v-if="jwt">Home</a></li>
             <li><a href="/login" title="Login" v-if="!jwt">Login</a></li>
             <li><a href="/signup" title="SignUp" v-if="!jwt">Sign Up</a></li>
             <li><a href="/logout" title="Logout" v-if="jwt">Logout</a></li>
@@ -93,7 +98,8 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-12 text-center">
-              <h1 class="mh-line-size-1 font-alt m-b-20">Mise En.</h1>
+              <h1 class="mh-line-size-1 font-alt m-b-20">{{ header }}</h1>
+              <h5 class="mh-line-size-4 font-alt">{{ subheader }}</h5>
             </div>
           </div>
         </div>
@@ -103,8 +109,8 @@
       <router-view v-on:changeJwt="setJwt()" />
 
       <!-- FOOTER -->
-      <footer class="module bg-light">
-        <div class="container">
+      <footer class="module-sm bg-light">
+        <div class="container" style="padding-top: 30px">
           <div class="row">
             <div class="col-sm-12">
               <ul class="social-text-links font-alt text-center m-b-20">
@@ -129,7 +135,7 @@
           <br />
           <div class="row">
             <div class="col-sm-12 text-center">
-              <img src="assets/images/favicon.png" width="70" alt="" />
+              <img src="assets/images/faviconblack.png" width="70" alt="" />
             </div>
           </div>
         </div>
@@ -157,7 +163,9 @@ export default {
   data: function() {
     return {
       jwt: null,
-      locations: []
+      locations: [],
+      header: "Mise En.",
+      subheader: ""
     };
   },
   created: function() {
