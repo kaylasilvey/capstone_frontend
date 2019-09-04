@@ -3,17 +3,18 @@
     <div class="container">
       <div class="form-group" style="padding-top: 30px">
         <form id="contact-form" role="form" novalidate="" v-on:submit.prevent="submit()">
-          <h1 class="mh-line-size-3 font-alt m-b-20 text-center">Sign Up</h1>
+          <h1 class="mh-line-size-3 font-alt m-b-20 text-center">Sign Up:</h1>
           <ul>
             <li class="text-danger" v-for="error in errors">{{ error }}</li>
           </ul>
           <div class="form-group">
-            <label class="sr-only" for="cname">Name</label>
+            <label class="sr-only" for="name">Name</label>
             <input
               type="text"
-              id="cname"
+              id="name"
+              v-model="name"
               class="form-control"
-              name="cname"
+              name="name"
               placeholder="Name*"
               required=""
               data-validation-required-message="Please enter your name."
@@ -24,11 +25,12 @@
           </div>
 
           <div class="form-group">
-            <label class="sr-only" for="cemail">Your Email</label>
+            <label class="sr-only" for="email">Your Email</label>
             <input
               type="email"
-              id="cemail"
-              name="cemail"
+              v-model="email"
+              id="email"
+              name="email"
               class="form-control"
               placeholder="Your E-mail*"
               required=""
@@ -43,6 +45,7 @@
             <input
               type="password"
               id="password"
+              v-model="password"
               class="form-control"
               name="password"
               placeholder="PASSWORD*"
@@ -57,6 +60,7 @@
             <label class="sr-only" for="password">Password Confirmation</label>
             <input
               type="password"
+              v-model="passwordConfirmation"
               id="passwordConfirmation"
               class="form-control"
               name="passwordConfirmation"
@@ -73,6 +77,7 @@
           </div>
         </form>
       </div>
+      <div class="module-subtitle font-serif" style="padding-top: 10px">Let's go!</div>
     </div>
   </div>
 </template>
