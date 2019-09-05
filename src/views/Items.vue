@@ -122,7 +122,12 @@
                               </select>
                             </div>
 
-                            <input type="submit" value="Update" class="btn btn-b btn-sm btn-primary" />
+                            <input
+                              type="submit"
+                              value="Update"
+                              class="btn btn-b btn-sm btn-primary"
+                              data-dismiss="modal"
+                            />
                           </form>
                         </div>
 
@@ -200,7 +205,7 @@
                       <option v-for="location in locations" :value="location.id">{{ location.name }}</option>
                     </select>
                   </div>
-                  <input type="submit" value="Create" class="btn btn-b btn-sm btn-primary" />
+                  <input type="submit" value="Create" class="btn btn-b btn-sm btn-primary" data-dismiss="modal" />
                 </form>
               </div>
             </div>
