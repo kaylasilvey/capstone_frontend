@@ -27,7 +27,7 @@
             <li class="slidedown">
               <a href="#">Pantry Locations</a>
               <ul id="locations">
-                <li v-for="location in locations">
+                <li v-for="location in orderBy(filterBy(locations, searchFilter, 'name'), sortAttribute)">
                   <a href="/locations">
                     {{ location.name }}
                   </a>
@@ -168,16 +168,20 @@ import Vue from "vue";
 import axios from "axios";
 import "vue-instant/dist/vue-instant.css";
 import VueInstant from "vue-instant";
+import Vue2Filters from "vue2-filters";
 
 Vue.use(VueInstant);
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       jwt: null,
       locations: [],
       header: "Mise En.",
-      subheader: ""
+      subheader: "",
+      searchFilter: "",
+      sortAttribute: "name"
     };
   },
   created: function() {
