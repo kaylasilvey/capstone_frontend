@@ -13,7 +13,10 @@
           <!-- ACCORDIONS -------------------------------------------------------------->
 
           <div class="panel-group" id="accordion">
-            <div class="panel panel-default" v-for="location in locations">
+            <div
+              class="panel panel-default"
+              v-for="location in orderBy(filterBy(locations, searchFilter, 'name'), sortAttribute)"
+            >
               <div class="panel-heading">
                 <h4 class="panel-title font-alt">
                   <a
@@ -33,7 +36,10 @@
                 aria-expanded="false"
                 style="height: 0px;"
               >
-                <div class="panel-body" v-for="item in location.item">
+                <div
+                  class="panel-body"
+                  v-for="item in orderBy(filterBy(location.item, searchFilter, 'name'), sortAttribute)"
+                >
                   {{ item.name }} | {{ item.QTY }} | {{ item.UOM }}
                   <button class="btn btn-border-d btn-round btn-xs" style="float: right;">Delete</button>
                   <button class="btn btn-border-d btn-round btn-xs" style="float: right;">Edit</button>
@@ -216,7 +222,10 @@
 
 <script>
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
+
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       message: "MY LOCATIONS",
@@ -224,7 +233,9 @@ export default {
       location: "",
       name: "",
       edit_name: "",
-      location_id: ""
+      location_id: "",
+      searchFilter: "",
+      sortAttribute: "name"
     };
   },
   created: function() {
