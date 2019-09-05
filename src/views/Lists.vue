@@ -1,14 +1,14 @@
 <template>
-  <!-- TABS ------------------------------->
+  <!-- TABS ---------------------------------------------------------------------------->
   <section class="module">
     <div class="container">
-      <!-- MODULE TITLE -->
+      <!-- MODULE TITLE -------------------------------------------------->
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
           <h2 class="module-title font-alt">Groceries</h2>
         </div>
       </div>
-      <!-- /MODULE TITLE -->
+      <!-- /MODULE TITLE -------------------------------------------------->
 
       <div class="row multi-columns-row">
         <div class="col-10" <div role="tabpanel">
@@ -29,19 +29,21 @@
                       <button class="btn btn-outline-secondary" type="Add Item" id="button-addon2" v-on:click="addItem()">Add Item</button>
                     </div>
               </div>
-              <ul>
-                <li v-for="item in setList">
-
-                {{item.QTY}} | {{item.UOM}} | {{item.name}}
-              </li>
-            </ul>
+                <ul>
+                  <li v-for="item in setList">
+                    {{item.QTY}} | {{item.UOM}} | {{item.name}}
+                  </li>
+                </ul>
+              
             </div>
           </div>
         </div>
-        <!-- /TABS -->
+        <!-- /TABS --------------------------------------------------------------------->
       </div>
     </div>
-    <!-- Add New Button----->
+
+    <!-- Add New Button----------------------------------------------------------------->
+
     <div style="text-align: center;">
       <p>
         <button
@@ -52,7 +54,7 @@
         >
           Add New Category
         </button>
-        <!-- Add New Modal -->
+        <!-- Add New Modal ------------------------------------------------------------->
       <div
         class="modal fade"
         id="newLocationModal"
@@ -87,7 +89,7 @@
           </div>
         </div>
       </div>
-      <!-- end add new modal ------>
+      <!-- end add new modal ----------------------------------------------------------->
       </p>
     </div>
   </section>
@@ -112,6 +114,7 @@ export default {
       UOM: "",
       category_id: "",
       edit_name: "",
+      
     };
   },
   created: function() {
