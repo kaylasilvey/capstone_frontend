@@ -1,60 +1,93 @@
 <template>
-  <!-- TABS ---------------------------------------------------------------------------->
   <section class="module">
     <div class="container">
-      <!-- MODULE TITLE -------------------------------------------------->
+      <!-- PAGE TITLE ------------------------------------------------------------------>
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
           <h2 class="module-title font-alt">Groceries</h2>
         </div>
       </div>
-      <!-- /MODULE TITLE -------------------------------------------------->
+      <!-- END PAGE TITLE -------------------------------------------------------------->
+
+      <!-- TABS ------------------------------------------------------------------------>
+
+      <!-- TAB TITLES ------------------------------------------------------------------>
 
       <div class="row multi-columns-row">
         <div class="col-10" <div role="tabpanel">
           <ul class="nav nav-tabs font-alt" role="tablist">
-            <li class="" v-for="list in lists"><a v-bind:href="`#category${list.id}`" data-toggle="tab" aria-expanded="true" v-on:click="setID=list.id, setList=list.item" >{{list.name}}</a></li>
+            <li class="" v-for="list in lists">
+              <a
+                v-bind:href="`#category${list.id}`"
+                data-toggle="tab"
+                aria-expanded="true"
+                v-on:click="(setID = list.id), (setList = list.item)"
+              >
+                {{ list.name }}
+              </a>
+            </li>
           </ul>
 
-          <div class="tab-content">
+          <!-- TAB ADD ITEM ------------------------------------------------------------>
+
+          <div class="tab-content" style="min-height: 300px;">
             <div class="tab-pane" v-bind:id="`category${setID}`">
-              <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">QTY | UOM | Item </span>
-                    </div>
-                    <input type="text" v-model="QTY" aria-label="QTY" class="form-control col-sm-2" aria-describedby="button-addon2">
-                    <input type="text" v-model="UOM" aria-label="UOM" class="form-control col-sm-2" aria-describedby="button-addon2">
-                    <input type="text" v-model="item" aria-label="name" class="form-control col-sm-6" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="Add Item" id="button-addon2" v-on:click="addItem()">Add Item</button>
-                    </div>
+              <input
+                type="text"
+                v-model="QTY"
+                aria-label="QTY"
+                placeholder="QUANTITY*"
+                class="form-control"
+                aria-describedby="button-addon2"
+              />
+              <input
+                type="text"
+                v-model="UOM"
+                aria-label="UOM"
+                placeholder="UNIT OF MEASURE*"
+                class="form-control"
+                aria-describedby="button-addon2"
+              />
+              <input
+                type="text"
+                v-model="item"
+                placeholder="ITEM NAME*"
+                aria-label="name"
+                class="form-control"
+                aria-describedby="button-addon2"
+              />
+              <div class="input-group-append text-center" style="padding-bottom: 20px;">
+                <button class="btn btn-block btn-round btn-d" type="Add Item" id="button-addon2" v-on:click="addItem()">
+                  Add Item To List
+                </button>
               </div>
-                <ul>
-                  <li v-for="item in setList">
-                    {{item.QTY}} | {{item.UOM}} | {{item.name}}
-                  </li>
-                </ul>
-              
+
+              <!-- TAB CONTENT --------------------------------------------------------->
+
+              <blockquote style="min-height: 200px">
+                <p v-for="item in setList">{{ item.QTY }} | {{ item.UOM }} | {{ item.name }}</p>
+              </blockquote>
             </div>
           </div>
         </div>
-        <!-- /TABS --------------------------------------------------------------------->
+
+        <!-- END TABS ------------------------------------------------------------------>
       </div>
     </div>
 
-    <!-- Add New Button----------------------------------------------------------------->
+    <!-- ADD NEW LIST ------------------------------------------------------------------>
 
     <div style="text-align: center;">
-      <p>
-        <button
-          class="btn btn-border-d btn-round btn-lg"
-          type="submit"
-          data-toggle="modal"
-          data-target="#newLocationModal"
-        >
-          Add New Category
-        </button>
-        <!-- Add New Modal ------------------------------------------------------------->
+      <button
+        class="btn btn-border-d btn-round btn-lg"
+        type="submit"
+        data-toggle="modal"
+        data-target="#newLocationModal"
+      >
+        Add New Category
+      </button>
+
+      <!-- ADD NEW LIST MODAL -------------------------------------------------------->
       <div
         class="modal fade"
         id="newLocationModal"
@@ -71,26 +104,25 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
 
-            <form v-on:submit.prevent="createListCategory()">
+            <div class="modal-body">
+              <form v-on:submit.prevent="createListCategory()">
                 <div class="form-group">
                   Name:
                   <input v-model="name" type="text" class="form-control" />
                 </div>
                 <input type="submit" value="Create" class="btn btn-border-d btn-round btn-sm btn-primary" />
-            </form>
-          
+              </form>
             </div>
             <div class="modal-footer">
-
-              <button type="button" class="btn btn-border-d btn-round btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-border-d btn-round btn-sm btn-secondary" data-dismiss="modal">
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <!-- end add new modal ----------------------------------------------------------->
-      </p>
+      <!-- ADD NEW LIST MODAL ---------------------------------------------------------->
     </div>
   </section>
 </template>
@@ -109,12 +141,11 @@ export default {
       list: "",
       name: "",
       item: [],
-      item:"",
+      item: "",
       QTY: "",
       UOM: "",
       category_id: "",
-      edit_name: "",
-      
+      edit_name: ""
     };
   },
   created: function() {
@@ -126,42 +157,39 @@ export default {
   },
 
   methods: {
-      // ADD ITEM ---------------------------------------------------->
+    // ADD ITEM ---------------------------------------------------->
 
-      addItem: function() {
+    addItem: function() {
       console.log("Creating Item ...");
-      var params ={
-          item: this.item,
+      var params = {
+        item: this.item,
+        UOM: this.UOM
+      };
+      axios.post("/api/items", params).then(response => {
+        console.log("Success", response.data);
+        console.log("adding item to list");
+        this.$router.push("/items");
+        var params = {
+          QTY: this.QTY,
           UOM: this.UOM,
+          item: response.data.id,
+          list_id: this.setID
         };
-      axios
-        .post("/api/items", params)
-        .then(response => {
-          console.log("Success", response.data);
-          console.log("adding item to list");
-          this.$router.push("/items");
-          var params ={
-            QTY: this.QTY,
-            UOM: this.UOM,
-            item: response.data.id,
-            list_id: this.setID
-          };
-          axios
-            .post("api/list_items", params)
-            .then(response => {
+        axios
+          .post("api/list_items", params)
+          .then(response => {
             console.log("Success", response.data);
-            this.$router.push("/lists")
-            .catch(error => console.log(error.response));
-        })
-        .catch(error => console.log(error.response));
-    });
+            this.$router.push("/lists").catch(error => console.log(error.response));
+          })
+          .catch(error => console.log(error.response));
+      });
     },
-     // DESTROY ------------------------------------------------------>
-    
+    // DESTROY ------------------------------------------------------>
+
     destroyListCategory: function(inputList) {
       var params = {
         category_id: this.category_id
-      }
+      };
       axios.delete("/api/lists/" + this.category_id).then(response => {
         console.log("Location Deleted", response.data);
         var index = this.locations.indexOf(inputList);
@@ -169,35 +197,34 @@ export default {
       });
     },
     // CREATE -------------------------------------------------------->
-     createListCategory: function() {
+    createListCategory: function() {
       console.log("Creating List category ...");
       var formData = new FormData();
       formData.append("name", this.name);
       axios
         .post("/api/lists", formData)
         .then(response => {
-        console.log("Success", response.data);
-        this.$router.push("/lists");
+          console.log("Success", response.data);
+          this.$router.push("/lists");
         })
         .catch(error => console.log(error.response));
     },
     // UPDATE -------------------------------------------------------->
-     updateListCategory: function(inputList) {
-      var params ={
-      name: this.edit_name,
-      category_id: this.category_id
-    };
+    updateListCategory: function(inputList) {
+      var params = {
+        name: this.edit_name,
+        category_id: this.category_id
+      };
       console.log("Updating List Category ...");
       axios
         .patch("/api/lists/" + this.category_id, params)
         .then(response => {
-        console.log("Success", response.data);
-        inputList.name = this.edit_name;
-        this.$router.push("/lists");
+          console.log("Success", response.data);
+          inputList.name = this.edit_name;
+          this.$router.push("/lists");
         })
         .catch(error => console.log(error.response));
     }
   }
 };
 </script>
-
