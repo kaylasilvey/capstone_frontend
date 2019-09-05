@@ -16,7 +16,7 @@
       <div class="row multi-columns-row">
         <div class="col-10" <div role="tabpanel">
           <ul class="nav nav-tabs font-alt" role="tablist">
-            <li class="" v-for="list in lists">
+            <li class="" v-for="list in orderBy(filterBy(lists, searchFilter, 'name'), sortAttribute)">
               <a
                 v-bind:href="`#category${list.id}`"
                 data-toggle="tab"
@@ -26,8 +26,18 @@
                 {{ list.name }}
               </a>
             </li>
+            <li>
+                <a
+                  class="nav nav-tabs font-alt"
+                  type="submit"
+                  data-toggle="modal"
+                  data-target="#newLocationModal"
+                >
+                  Add New Category
+                </a>
+            </li>
           </ul>
-
+</div>
           <!-- TAB ADD ITEM ------------------------------------------------------------>
 
           <div class="tab-content" style="min-height: 300px;">
@@ -56,7 +66,7 @@
                 class="form-control"
                 aria-describedby="button-addon2"
               />
-              <div class="input-group-append text-center" style="padding-bottom: 20px;">
+              <div class="input-group-append" style="padding-bottom: 20px;">
                 <button class="btn btn-block btn-round btn-d" type="Add Item" id="button-addon2" v-on:click="addItem()">
                   Add Item To List
                 </button>
@@ -65,10 +75,24 @@
               <!-- TAB CONTENT --------------------------------------------------------->
 
               <blockquote style="min-height: 200px">
-                <p v-for="item in setList">{{ item.QTY }} | {{ item.UOM }} | {{ item.name }}</p>
+                <div class="form-check" v-for="item in setList">
+                  <input class="form-check-input" type="checkbox" value="" :id="`item${item}`" />
+                  <label class="form-check-label panel-body" style="font-size: 14px;" :for="`item${item}`">
+                    {{ item.QTY }} | {{ item.UOM }} | {{ item.name }}
+                  </label>
+                </div>
               </blockquote>
+                <div style="text-align: center;">
+                  <button
+                    class="btn btn-border-d btn-round btn-sm"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#newLocationModal"
+                  >
+                    Remove Item From List
+                  </button>
+                </div>
             </div>
-          </div>
         </div>
 
         <!-- END TABS ------------------------------------------------------------------>
@@ -76,16 +100,6 @@
     </div>
 
     <!-- ADD NEW LIST ------------------------------------------------------------------>
-
-    <div style="text-align: center;">
-      <button
-        class="btn btn-border-d btn-round btn-lg"
-        type="submit"
-        data-toggle="modal"
-        data-target="#newLocationModal"
-      >
-        Add New Category
-      </button>
 
       <!-- ADD NEW LIST MODAL -------------------------------------------------------->
       <div
@@ -115,7 +129,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-border-d btn-round btn-sm btn-secondary" data-dismiss="modal">
+              <button type="button" class="btn btn-border-d btn-round btn-xs btn-secondary" data-dismiss="modal">
                 Cancel
               </button>
             </div>
@@ -131,8 +145,10 @@
 
 <script>
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       lists: [],
@@ -145,7 +161,9 @@ export default {
       QTY: "",
       UOM: "",
       category_id: "",
-      edit_name: ""
+      edit_name: "",
+      searchFilter: "",
+      sortAttribute: "name"
     };
   },
   created: function() {
