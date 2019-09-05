@@ -216,7 +216,9 @@ export default {
       });
     },
     addIngredient: function() {
-      this.ingredients.push(this.ingredient);
+      var ingredient = this.ingredient
+      this.ingredients.push(ingredient);
+      this.ingredient = "";
       console.log(this.ingredients);
     }
   }
